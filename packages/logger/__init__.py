@@ -11,7 +11,7 @@ DEBUG = 10
 NOTSET = 0
 
 
-def get_logger(logger_name: str, logger_level=DEBUG):
+def project_logger(logger_name: str, logger_level=DEBUG):
     """Logger for the project"""
     logger_obj = setup_logger(logger_name, logger_level)
     return logger_obj
