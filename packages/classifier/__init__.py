@@ -2,7 +2,7 @@
 
     based on https://github.com/testdotai/classifier-client-python"""
 
-from logger import project_logger
+from packages.logger import project_logger
 
 logger = project_logger("Classifier Client")
 try:

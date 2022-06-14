@@ -4,7 +4,7 @@
     :returns: Link"""
 import json
 
-from logger import project_logger
+from packages.logger import project_logger
 
 logger = project_logger("Test Link")
 

@@ -1,9 +1,12 @@
 """Setup selenium Chrome driver for the project
 
     applying BOM Moudel"""
+import pathlib
 from packages.logger import project_logger
 
 logger = project_logger("Project Driver")
+
+path = pathlib.Path(__file__).parent.resolve()
 
 try:
     from selenium import webdriver
@@ -29,7 +32,7 @@ def setup_selenium_driver() -> webdriver.Chrome:
     except selenium_exceptions.WebDriverException:
         try:
             driver = webdriver.Chrome(
-                executable_path="chromedriver.exe", options=options)
+                executable_path=f"{path}\\chromedriver.exe", options=options)
         except selenium_exceptions.WebDriverException as ex:
             logger.critical("Chrome driver not found: %s", ex.__doc__)
             raise (f"Chrome driver not found: {ex.__doc__}") from ex
