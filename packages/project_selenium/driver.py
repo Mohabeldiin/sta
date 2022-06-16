@@ -9,6 +9,8 @@ logger = project_logger("Project Driver")
 
 path = pathlib.Path(__file__).parent.resolve()
 
+
+@staticmethod
 def setup_selenium_driver() -> webdriver.Chrome:
     """Sets up the selenium driver
         Returns:
@@ -38,7 +40,25 @@ def setup_selenium_driver() -> webdriver.Chrome:
             logger.debug("Returning driver: %s", driver)
     return driver
 
-__all__ = ['setup_selenium_driver']
+
+@staticmethod
+def teardown_selenium_driver(driver):
+    """Tears down the selenium driver"""
+    logger.debug("Tearing down selenium")
+    try:
+        driver.quit()
+    except selenium_exceptions.WebDriverException as ex:
+        logger.critical("Unable to quit driver: %s", ex.__doc__)
+        raise (f"Unable to quit driver: {ex.__doc__}") from ex
+    except Exception as ex:
+        logger.critical("Unable to quit driver: %s", ex.__doc__)
+        raise (f"Unable to quit driver: {ex.__doc__}") from ex
+    else:
+        del driver
+        logger.debug("Tear Down Successfully.")
+
+
+__all__ = ['setup_selenium_driver', 'teardown_selenium_driver']
 __author__ = "Mohab Mohsen"
 __license__ = "MIT"
 __email__ = "mohabeldiin@gmail.com"
