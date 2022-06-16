@@ -16,8 +16,14 @@ except ImportError:
     logger.error("Selenium is not installed")
     raise ImportError("Please install selenium module") from ImportError
 
+try:
+    import unittest
+except ImportError:
+    logger.error("unittest is not installed")
+    raise ImportError("Please install unittest module") from ImportError
+
 __all__ = ['webdriver', 'selenium_exceptions',
-           'WebElement', 'By', 'EC', 'WebDriverWait']
+           'WebElement', 'By', 'EC', 'WebDriverWait', 'unittest']
 __author__ = "Mohab Mohsen"
 __license__ = "MIT"
 __email__ = "mohabeldiin@gmail.com"
