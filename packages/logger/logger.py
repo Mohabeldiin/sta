@@ -17,7 +17,7 @@ FORMAT = '%(asctime)s - %(name)s - %(levelname)s: %(message)s'
 DATEFMT = '%Y-%m-%d %H:%M:%S'
 LEVEL = logging.INFO
 FILEMODE = "w"
-FILENAME = None
+FILENAME = "log.log"
 
 
 def setup_logger(
