@@ -1,5 +1,5 @@
 """this test case Check the password when passing only numbers
-    TC_13_Registration from https://www.loginradius.com/blog/async/test-cases-for-registration-and-login-page/"""
+    TC_13_registration from https://www.loginradius.com/blog/async/test-cases-for-registration-and-login-page/"""
 
 
 #import unittest
@@ -48,9 +48,47 @@ class Test_13_Registration(unittest.TestCase):
         self.sinUp_button_locator = (By.NAME, "websubmit")
         self.error_message_locator = (By.ID, "foo")
 
-    def test_01_Password_Validation(self):
-        """Check the password when passing only numbers\n
-        EC: It should show validation message"""
+    #creating 19 test case as test_1_registration
+    def test_1_registration(self):
+        """foo"""
+
+    def test_2_registration(self):
+        """foo"""
+
+    def test_3_registration(self):
+        """foo"""
+
+    def test_4_registration(self):
+        """foo"""
+
+    def test_5_registration(self):
+        """foo"""
+
+    def test_6_registration(self):
+        """foo"""
+
+    def test_7_registration(self):
+        """foo"""
+
+    def test_8_registration(self):
+        """foo"""
+
+    def test_9_registration(self):
+        """foo"""
+
+    def test_10_registration(self):
+        """foo"""
+
+    def test_11_registration(self):
+        """foo"""
+
+    def test_12_registration(self):
+        """foo"""
+
+    def test_13_registration(self):
+        """Check the password when passing only numbers.\n
+            1- Enter a value in numbers which is in between 8-32.\n
+            2- Click on Register button."""
         try:
             try:
                 phone = WebDriverWait(self.driver, 10).until(
@@ -84,6 +122,24 @@ class Test_13_Registration(unittest.TestCase):
         except AssertionError:
             print("\n###############\n",AssertionError.__doc__ , "\n###############\n")
             assert False
+
+    def test_14_registration(self):
+        """foo"""
+
+    def test_15_registration(self):
+        """foo"""
+
+    def test_16_registration(self):
+        """foo"""
+
+    def test_17_registration(self):
+        """foo"""
+
+    def test_18_registration(self):
+        """foo"""
+
+    def test_19_registration(self):
+        """foo"""
 
     def tearDown(self):
         """this method will be called after every test"""
