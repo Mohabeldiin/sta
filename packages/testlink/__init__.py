@@ -16,7 +16,6 @@ except ImportError:
     raise ImportError("Please install requests module") from ImportError
 
 
-@staticmethod
 def __validate_url(url: str) -> str:
     """validate the url
         by removing the http:// or https:// or www.
@@ -47,7 +46,6 @@ def __validate_url(url: str) -> str:
     return url
 
 
-@staticmethod
 def get_link_to_test():
     """Gets the Link from the database"""
     logger.info("Getting Link from Database")
