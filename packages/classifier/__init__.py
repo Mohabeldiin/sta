@@ -3,13 +3,9 @@
     based on https://github.com/testdotai/classifier-client-python"""
 
 from packages.logger import project_logger
+from packages.project_selenium import WebElement
 
 logger = project_logger("Classifier Client")
-try:
-    from selenium.webdriver.remote.webelement import WebElement
-except ImportError:
-    logger.error("Selenium is not installed")
-    raise ImportError("Please install selenium module") from ImportError
 
 QUERY = "//body//*[not(self::script) and not(self::style) and not(child::*)]"
 
