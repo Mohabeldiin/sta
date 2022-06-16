@@ -47,7 +47,6 @@ def teardown_selenium_driver(driver):
     """Tears down the selenium driver"""
     logger.debug("Tearing down selenium")
     try:
-        driver
         driver.quit()
     except selenium_exceptions.WebDriverException as ex:
         logger.critical("Unable to quit driver: %s", ex.__doc__)
