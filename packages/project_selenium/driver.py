@@ -2,15 +2,17 @@
 
     applying BOM Moudel"""
 import pathlib
+
 from packages.logger import project_logger
-from packages.project_selenium import webdriver, selenium_exceptions
+
+from selenium import webdriver
+from selenium.common import exceptions as selenium_exceptions
 
 logger = project_logger("Project Driver")
 
 path = pathlib.Path(__file__).parent.resolve()
 
 
-@staticmethod
 def setup_selenium_driver() -> webdriver.Chrome:
     """Sets up the selenium driver
         Returns:
@@ -41,11 +43,11 @@ def setup_selenium_driver() -> webdriver.Chrome:
     return driver
 
 
-@staticmethod
 def teardown_selenium_driver(driver):
     """Tears down the selenium driver"""
     logger.debug("Tearing down selenium")
     try:
+        driver
         driver.quit()
     except selenium_exceptions.WebDriverException as ex:
         logger.critical("Unable to quit driver: %s", ex.__doc__)
