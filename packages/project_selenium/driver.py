@@ -3,18 +3,11 @@
     applying BOM Moudel"""
 import pathlib
 from packages.logger import project_logger
+from packages.project_selenium import webdriver, selenium_exceptions
 
 logger = project_logger("Project Driver")
 
 path = pathlib.Path(__file__).parent.resolve()
-
-try:
-    from selenium import webdriver
-    from selenium.common import exceptions as selenium_exceptions
-except ImportError:
-    logger.error("Selenium is not installed")
-    raise ImportError("Please install selenium module") from ImportError
-
 
 def setup_selenium_driver() -> webdriver.Chrome:
     """Sets up the selenium driver
@@ -45,7 +38,7 @@ def setup_selenium_driver() -> webdriver.Chrome:
             logger.debug("Returning driver: %s", driver)
     return driver
 
-
+__all__ = ['setup_selenium_driver']
 __author__ = "Mohab Mohsen"
 __license__ = "MIT"
 __email__ = "mohabeldiin@gmail.com"
