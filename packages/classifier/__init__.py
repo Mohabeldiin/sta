@@ -17,7 +17,6 @@ class ClassifierClient(object):
         """initilize the classifier client"""
         logger.info("Initializing Classifier Client")
         self.driver = driver
-        # super().__init__()
 
     def find_elements_matching_label(self, label):
         """finds all page elements matching the label"""
