@@ -6,7 +6,7 @@ from packages.logger import project_logger
 
 logger = project_logger("Classifier Client")
 try:
-    from selenium.webdriver.common.by import By
+    from selenium.webdriver.remote.webelement import WebElement
 except ImportError:
     logger.error("Selenium is not installed")
     raise ImportError("Please install selenium module") from ImportError
@@ -21,12 +21,12 @@ class ClassifierClient(object):
         """initilize the classifier client"""
         logger.info("Initializing Classifier Client")
         self.driver = driver
+        # super().__init__()
 
     def find_elements_matching_label(self, label):
         """finds all page elements matching the label"""
         logger.info("Finding Elements Matching Label: %s", label)
-        all_page_elements = self.driver.find_elements(
-            by=By.CSS_SELECTOR, value=QUERY)
+        all_page_elements = self.driver.find_elements_by_xpath(QUERY)
         logger.debug("Page elements found: %s element", len(all_page_elements))
         elements_found = []
         for element in all_page_elements:
@@ -40,7 +40,8 @@ class ClassifierClient(object):
                     logger.debug("Found element: %s", txt)
                     elements_found.append(element)
         logger.info("Found %s elements", len(elements_found))
-        return elements_found
+        return [WebElement(element.parent,
+                           element.id) for element in elements_found]
 
 
 __author__ = "Mohab Mohsen"
