@@ -30,7 +30,16 @@ def setup_logger(
             Log Example:
                 2022-05-24 00:45:56,230 - Logger Name - INFO: Message
             Returns:
-                logging.Logger: logger"""
+                logging.Logger: logger
+
+        Args:
+            logger_name (str): name of the logger
+            logger_level (int, optional): level of the logger. Defaults to LEVEL.
+            logger_filename (str, optional): name of the file to log to. Defaults to FILENAME.
+            logger_filemode (str, optional): mode to open the file in. Defaults to FILEMODE.
+
+        Returns:
+            logging.Logger: logger"""
     logging.basicConfig(
         format=FORMAT,
         datefmt=DATEFMT,
