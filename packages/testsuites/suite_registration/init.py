@@ -10,40 +10,41 @@ from packages.project_selenium import (setup_selenium_driver, teardown_selenium_
 logger = project_logger("Registration Test Suite initialization")
 
 
-class SetUp():
+class SetUp:  # pylint: disable = too-few-public-methods, too-many-instance-attributes
     """called before every test"""
 
-    def __init__(self):
-        logger.info("Setting up Registration Test Suite")
+    def __init__(self, testself, driver):
         logger.info("setting up the test")
-        self.driver = setup_selenium_driver()
-        self.classifier = classifier_client_python(self.driver)
-        self.driver.implicitly_wait(5)
-        self.driver.get(get_link_to_test_without_validate())
+        testself.classifier = classifier_client_python(driver)
+        driver.implicitly_wait(5)
+        driver.get(get_link_to_test_without_validate())
 
         try:
-            self.newaccount = self.classifier.find_elements_matching_label(
+            testself.newaccount = testself.classifier.find_elements_matching_label(
                 'Create New Account')
-        except selenium_exceptions.NoSuchElementException:
-            self.newaccount = self.classifier.find_elements_matching_label(
+        except Exception as ex:
+            logger.error(ex)
+            testself.newaccount = testself.classifier.find_elements_matching_label(
                 'Sign Up')
         finally:
-            self.newaccount.click()
+            testself.newaccount.click()
 
-        self.firstname = self.classifier.find_elements_matching_label(
+        testself.firstname = testself.classifier.find_elements_matching_label(
             'first name')
-        self.lasttname = self.classifier.find_elements_matching_label(
+        testself.lasttname = testself.classifier.find_elements_matching_label(
             'surname')
-        self.email = self.classifier.find_elements_matching_label('email')
-        self.reemail = self.classifier.find_elements_matching_label(
-            're-enter email')
-        self.password = self.classifier.find_elements_matching_label(
+        testself.email = testself.classifier.find_elements_matching_label(
+            'email')
+        #testself.reemail = testself.classifier.find_elements_matching_label(
+        #    're-enter email')
+        testself.password = testself.classifier.find_elements_matching_label(
             'password')
-        self.sinup = self.classifier.find_elements_matching_label('sign up')
+        testself.sinup = testself.classifier.find_elements_matching_label(
+            'sign up')
         logger.info("test data initialized")
 
 
-class TearDown():
+class TearDown():  # pylint: disable = too-few-public-methods
     """called after every test"""
 
     def __init__(self, driver):
@@ -53,8 +54,9 @@ class TearDown():
         logger.info("test tear down")
 
 
-__all__ = ["SetUp", "TearDown", "webdriver", "selenium_exceptions", "By", "EC", "WebDriverWait", "unittest",
-           "project_logger", "classifier_client_python", "get_link_to_test_without_validate"]
+__all__ = ["SetUp", "TearDown", "webdriver", "selenium_exceptions", "By", "EC", "WebDriverWait",
+           "unittest", "project_logger", "classifier_client_python",
+           "get_link_to_test_without_validate", "setup_selenium_driver"]
 __author__ = "Mohab Mohsen"
 __license__ = "MIT"
 __email__ = "mohabeldiin@gmail.com"
