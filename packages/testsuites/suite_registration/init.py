@@ -22,7 +22,7 @@ class SetUp:  # pylint: disable = too-few-public-methods, too-many-instance-attr
         try:
             testself.newaccount = testself.classifier.find_elements_matching_label(
                 'Create New Account')
-        except Exception as ex:
+        except Exception as ex: # pylint: disable = broad-except
             logger.error(ex)
             testself.newaccount = testself.classifier.find_elements_matching_label(
                 'Sign Up')
