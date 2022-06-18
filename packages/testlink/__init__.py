@@ -16,7 +16,7 @@ except ImportError:
     raise ImportError("Please install requests module") from ImportError
 
 
-def __validate_url(url: str) -> str:
+def validate_url(url: str) -> str:
     """validate the url
         by removing the http:// or https:// or www.
         Args:
@@ -56,7 +56,7 @@ def get_link_to_test():
     data = json.loads(response.text)
     logger.debug("Link Received: %s", data['get'][-1]['link'])
     logger.info("Link Received")
-    return __validate_url(get_link_to_test_without_validate())
+    return validate_url(get_link_to_test_without_validate())
 
 
 def get_link_to_test_without_validate():

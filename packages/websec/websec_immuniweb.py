@@ -329,7 +329,7 @@ class WebSec(Locators):
 
 
 if __name__ == "__main__":
-    #websec = WebSec("https://www.modern-academy.edu.eg/")
+    websec = WebSec("https://www.modern-academy.edu.eg/")
     #websec = WebSec("https://www.facebook.com/")
     websec = WebSec()
     print(websec())
