@@ -11,8 +11,8 @@ from packages.project_selenium import (setup_selenium_driver, teardown_selenium_
 
 logger = project_logger("Registration Test Suite")
 
-class Test_Data(object):
-    """test data that is used in this test case"""
+class TestData(object):
+    """test data that is used in the test cases"""
     logger.info("initializing test data")
     BLANK_SPACES = " "
     PASSWORD_NUM = "12345678"
