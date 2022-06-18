@@ -8,9 +8,10 @@ from packages.project_selenium import (setup_selenium_driver, teardown_selenium_
                                        By, EC, WebDriverWait, unittest,
                                        WebElement)
 
-logger = project_logger("Registration Test Suite initialization")
+logger = project_logger("Login Test Suite initialization")
 
-class TestData(object):
+
+class TestData:
     """test data that is used in the test cases"""
     logger.info("initializing test data")
     BLANK_SPACES = " "
@@ -26,6 +27,7 @@ class TestData(object):
     FRIST_NAME = "fristname"
     LAST_NAME = "lasttname"
 
+
 class SetUp:  # pylint: disable = too-few-public-methods, too-many-instance-attributes
     """called before every test"""
 
@@ -34,6 +36,18 @@ class SetUp:  # pylint: disable = too-few-public-methods, too-many-instance-attr
         testself.classifier = classifier_client_python(driver)
         driver.implicitly_wait(5)
         driver.get(get_link_to_test_without_validate())
+        testself.email = testself.classifier.find_text_field_matching_label(
+            'email')
+        testself.email = WebElement(
+            testself.email.parent, testself.email.id)
+        testself.password = testself.classifier.find_text_field_matching_label(
+            'password')
+        testself.password = WebElement(
+            testself.password.parent, testself.password.id)
+        testself.login = testself.classifier.find_button_matching_label(
+            'Login')
+        testself.login = WebElement(
+            testself.login.parent, testself.login.id)
 
 
 class TearDown():  # pylint: disable = too-few-public-methods

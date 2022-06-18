@@ -14,7 +14,7 @@ class Test_03_Registration(unittest.TestCase):  # pylint: disable = invalid-name
        2- Click on the Register button."""
 
     def setUp(self):
-        """this method will be called before every test"""
+        """called before every test"""
         self.driver = setup_selenium_driver()
         SetUp(self, self.driver)
         self.temp_mail = TempMail()

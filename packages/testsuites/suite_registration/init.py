@@ -13,7 +13,7 @@ from packages.project_selenium import (setup_selenium_driver, teardown_selenium_
 logger = project_logger("Registration Test Suite initialization")
 
 
-class TestData(object):
+class TestData:
     """test data that is used in the test cases"""
     logger.info("initializing test data")
     BLANK_SPACES = " "
