@@ -132,9 +132,9 @@ dmypy.json
 #.vscode/
 
 # temp files
-tempCodeRunnerFile.py
-temp.py
-Test1.py
+#tempCodeRunnerFile.py
+#temp.py
+#Test1.py
 
 # pycharm
 #.idea/
