@@ -5,8 +5,8 @@ import pathlib
 
 from packages.logger import project_logger
 
-from selenium import webdriver
-from selenium.common import exceptions as selenium_exceptions
+from selenium import webdriver  # pylint: disable=wrong-import-order
+from selenium.common import exceptions as selenium_exceptions  # pylint: disable=wrong-import-order
 
 logger = project_logger("Project Driver")
 
