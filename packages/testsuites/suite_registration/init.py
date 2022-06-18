@@ -1,4 +1,4 @@
-"""foo"""
+"""Base for testsuites."""
 
 import time
 
