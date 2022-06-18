@@ -1,0 +1,21 @@
+{
+    "python.pythonPath": "C:\\Users\\mohab\\Documents\\VSCode\\GitHub\\websec_analytics\\envs\\bin\\python",
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.flake8Enabled": false,
+    "python.envFile": "${workspaceFolder}/.env",
+    "terminal.integrated.env.osx": {
+        "PYTHONPATH": "${workspaceFolder}"
+    },
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": "active",
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./packages",
+        "-p",
+        "test_*.py"
+    ],
+    "python.testing.pytestEnabled": false,
+    "python.testing.unittestEnabled": true
+}
