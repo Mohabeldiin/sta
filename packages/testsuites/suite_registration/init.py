@@ -5,7 +5,8 @@ from packages.classifier import ClassifierClient as classifier_client_python
 from packages.testlink import get_link_to_test_without_validate
 from packages.project_selenium import (setup_selenium_driver, teardown_selenium_driver,
                                        webdriver, selenium_exceptions,
-                                       By, EC, WebDriverWait, unittest)
+                                       By, EC, WebDriverWait, unittest,
+                                       WebElement)
 
 logger = project_logger("Registration Test Suite initialization")
 
@@ -20,27 +21,39 @@ class SetUp:  # pylint: disable = too-few-public-methods, too-many-instance-attr
         driver.get(get_link_to_test_without_validate())
 
         try:
-            testself.newaccount = testself.classifier.find_elements_matching_label(
+            testself.newaccount = testself.classifier.find_button_matching_label(
                 'Create New Account')
-        except Exception as ex: # pylint: disable = broad-except
+            testself.newaccount = WebElement(
+                testself.newaccount.parent, testself.newaccount.id)
+        except Exception as ex:  # pylint: disable = broad-except
             logger.error(ex)
-            testself.newaccount = testself.classifier.find_elements_matching_label(
+            testself.newaccount = testself.classifier.find_button_matching_label(
                 'Sign Up')
+            testself.newaccount = WebElement(
+                testself.newaccount.parent, testself.newaccount.id)
         finally:
             testself.newaccount.click()
 
-        testself.firstname = testself.classifier.find_elements_matching_label(
+        testself.firstname = testself.classifier.find_text_field_matching_label(
             'first name')
-        testself.lasttname = testself.classifier.find_elements_matching_label(
+        testself.firstname = WebElement(
+            testself.firstname.parent, testself.firstname.id)
+        testself.lasttname = testself.classifier.find_text_field_matching_label(
             'surname')
-        testself.email = testself.classifier.find_elements_matching_label(
+        testself.lasttname = WebElement(
+            testself.lasttname.parent, testself.lasttname.id)
+        testself.email = testself.classifier.find_text_field_matching_label(
             'email')
-        #testself.reemail = testself.classifier.find_elements_matching_label(
+        testself.email = WebElement(testself.email.parent, testself.email.id)
+        # testself.reemail = testself.classifier.find_text_field_matching_label(
         #    're-enter email')
-        testself.password = testself.classifier.find_elements_matching_label(
+        testself.password = testself.classifier.find_text_field_matching_label(
             'password')
-        testself.sinup = testself.classifier.find_elements_matching_label(
+        testself.password = WebElement(
+            testself.password.parent, testself.password.id)
+        testself.sinup = testself.classifier.find_button_matching_label(
             'sign up')
+        testself.sinup = WebElement(testself.sinup.parent, testself.sinup.id)
         logger.info("test data initialized")
 
 

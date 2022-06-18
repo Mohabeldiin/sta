@@ -24,12 +24,35 @@ class ClassifierClient(object):
         logger.info("Finding Elements Matching Label: %s", label)
         all_page_elements = self.driver.find_elements_by_xpath(QUERY)
         logger.debug("Page elements found: %s element", len(all_page_elements))
+        elements_found = []
         for element in all_page_elements:
             txt = element.text.lower().replace(" ", "")
             name = element.accessible_name.lower().replace(" ", "")
             if label in name or label in txt:
                 logger.debug("Found element: %s", label)
+                elements_found.append(element)
+        return [WebElement(element.parent,
+                           element.id) for element in elements_found]
+
+    def find_text_field_matching_label(self, labeltomatch):
+        """finds text fields matching the label"""
+        elements = self.find_elements_matching_label(labeltomatch)
+
+        for element in elements:
+            if element.aria_role == "textbox":
                 return WebElement(element.parent, element.id)
+
+        return None
+
+    def find_button_matching_label(self, labeltomatch):
+        """finds buttons matching the label"""
+        elements = self.find_elements_matching_label(labeltomatch)
+
+        for element in elements:
+            if element.aria_role == "button":
+                return WebElement(element.parent, element.id)
+
+        return None
 
 
 __author__ = "Mohab Mohsen"

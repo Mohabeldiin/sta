@@ -28,12 +28,11 @@ class Test_01_User_Interface(unittest.TestCase):  # pylint: disable = invalid-na
             assert False
 
     def tearDown(self):
-        """this method will be called after every test"""
+        """called after every test"""
         TearDown(self.driver)
 
 
 if __name__ == "__main__":
-    # unittest.main()
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(Test_01_User_Interface))
     runner = unittest.TextTestRunner()
