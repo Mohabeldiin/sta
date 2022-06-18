@@ -95,9 +95,6 @@ class SpeedApi:
         }
         return data
 
-    def __del__(self):
-        del self.data
-
 
 if __name__ == "__main__":
     app = SpeedApi("https://www.google.com")
