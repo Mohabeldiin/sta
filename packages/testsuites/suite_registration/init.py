@@ -1,5 +1,7 @@
 """foo"""
 
+import time
+
 from packages.logger import project_logger
 from packages.classifier import ClassifierClient as classifier_client_python
 from packages.testlink import get_link_to_test_without_validate
@@ -9,6 +11,23 @@ from packages.project_selenium import (setup_selenium_driver, teardown_selenium_
                                        WebElement)
 
 logger = project_logger("Registration Test Suite initialization")
+
+
+class TestData(object):
+    """test data that is used in the test cases"""
+    logger.info("initializing test data")
+    BLANK_SPACES = " "
+    PASSWORD_NUM = "12345678"
+    PASSWORD_LETTER = "Password"
+    PASSWORD_NUM_LETTER = "Pass123456"
+    PHONE_NUMBER = "+9190112244"
+    EMAIL_INVALID = "test@gmail.com"
+    EMAIL_INVALID2 = "test.22@gmail.com"
+    EMAIL_WITHOUT_AT = "testgmail.com"
+    EMAIL_WITHOUT_AT_IN_WORD = "testAtgmail.com"
+    EMAIL_WITHOUT_DOT = "test@gmailcom"
+    FRIST_NAME = "fristname"
+    LAST_NAME = "lasttname"
 
 
 class SetUp:  # pylint: disable = too-few-public-methods, too-many-instance-attributes
@@ -33,7 +52,7 @@ class SetUp:  # pylint: disable = too-few-public-methods, too-many-instance-attr
                 testself.newaccount.parent, testself.newaccount.id)
         finally:
             testself.newaccount.click()
-
+            time.sleep(5)
         testself.firstname = testself.classifier.find_text_field_matching_label(
             'first name')
         testself.firstname = WebElement(
@@ -45,12 +64,28 @@ class SetUp:  # pylint: disable = too-few-public-methods, too-many-instance-attr
         testself.email = testself.classifier.find_text_field_matching_label(
             'email')
         testself.email = WebElement(testself.email.parent, testself.email.id)
-        # testself.reemail = testself.classifier.find_text_field_matching_label(
-        #    're-enter email')
+        testself.reemail = WebElement(
+            testself.reemail.parent, testself.reemail.id)
         testself.password = testself.classifier.find_text_field_matching_label(
             'password')
         testself.password = WebElement(
             testself.password.parent, testself.password.id)
+        testself.birthday = testself.classifier.find_button_matching_label(
+            '8')
+        testself.birthday = WebElement(
+            testself.birthday.parent, testself.birthday.id)
+        testself.birthmonth = testself.classifier.find_button_matching_label(
+            'nov')
+        testself.birthmonth = WebElement(
+            testself.birthmonth.parent, testself.birthmonth.id)
+        testself.birthyear = testself.classifier.find_button_matching_label(
+            '1997')
+        testself.birthyear = WebElement(
+            testself.birthyear.parent, testself.birthyear.id)
+        testself.gender = testself.classifier.find_button_matching_label(
+            'male')
+        testself.gender = WebElement(
+            testself.gender.parent, testself.gender.id)
         testself.sinup = testself.classifier.find_button_matching_label(
             'sign up')
         testself.sinup = WebElement(testself.sinup.parent, testself.sinup.id)
