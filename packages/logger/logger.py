@@ -13,9 +13,16 @@
         logging.Logger: logger"""
 import logging
 
+CRITICAL = 50
+ERROR = 40
+WARNING = 30
+INFO = 20
+DEBUG = 10
+NOTSET = 0
+
 FORMAT = '%(asctime)s - %(name)s - %(levelname)s: %(message)s'
 DATEFMT = '%Y-%m-%d %H:%M:%S'
-LEVEL = logging.INFO
+LEVEL = INFO
 FILEMODE = "w"
 FILENAME = None
 

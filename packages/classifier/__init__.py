@@ -53,8 +53,3 @@ class ClassifierClient(object):
                 return WebElement(element.parent, element.id)
 
         return None
-
-
-__author__ = "Mohab Mohsen"
-__license__ = "MIT"
-__email__ = "mohabeldiin@gmail.com"
