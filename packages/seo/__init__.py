@@ -1,5 +1,5 @@
 """"SEO Using SE Ranking: seranking.com"""
-
+import arabic_reshaper
 from packages.logger import setup_logger
 from packages.project_selenium import (EC, By, WebDriverWait,
                                        selenium_exceptions,
@@ -171,8 +171,18 @@ class SEORanking():
                 logger.critical("Unable to open SE Ranking: %s", ex.__doc__)
                 raise (f"Unable to open SE Ranking{ex.__doc__}") from ex
             else:
-                keywords.append(element.text)
-                logger.debug("Keyword: %s", element.text)
+                keyword = element.text
+                character = keyword[2]
+                if('\u0600' <= character <= '\u06FF' or
+                    '\u0750' <= character <= '\u077F' or
+                    '\u08A0' <= character <= '\u08FF' or
+                    '\uFB50' <= character <= '\uFDFF' or
+                    '\uFE70' <= character <= '\uFEFF' or
+                    '\U00010E60' <= character <= '\U00010E7F' or
+                    '\U0001EE00' <= character <= '\U0001EEFF'):
+                    keyword = arabic_reshaper.reshape(keyword)[::-1]
+                keywords.append(keyword)
+                logger.debug("Keyword: %s", keyword)
         return keywords
 
     def __robot_handeler(self, url: str):
