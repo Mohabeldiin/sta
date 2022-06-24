@@ -64,28 +64,30 @@ class SetUp:  # pylint: disable = too-few-public-methods, too-many-instance-attr
         testself.email = testself.classifier.find_text_field_matching_label(
             'email')
         testself.email = WebElement(testself.email.parent, testself.email.id)
-        testself.reemail = WebElement(
-            testself.reemail.parent, testself.reemail.id)
+        # testself.email.send_keys(TestData.EMAIL_INVALID)
+        # testself.reemail = WebElement(
+        #     testself.reemail.parent, testself.reemail.id)
+        # testself.email.clear()
         testself.password = testself.classifier.find_text_field_matching_label(
             'password')
-        testself.password = WebElement(
-            testself.password.parent, testself.password.id)
-        testself.birthday = testself.classifier.find_button_matching_label(
-            '8')
-        testself.birthday = WebElement(
-            testself.birthday.parent, testself.birthday.id)
-        testself.birthmonth = testself.classifier.find_button_matching_label(
-            'nov')
-        testself.birthmonth = WebElement(
-            testself.birthmonth.parent, testself.birthmonth.id)
-        testself.birthyear = testself.classifier.find_button_matching_label(
-            '1997')
-        testself.birthyear = WebElement(
-            testself.birthyear.parent, testself.birthyear.id)
-        testself.gender = testself.classifier.find_button_matching_label(
-            'male')
-        testself.gender = WebElement(
-            testself.gender.parent, testself.gender.id)
+        # testself.password = WebElement(
+        #     testself.password.parent, testself.password.id)
+        # testself.birthday = testself.classifier.find_button_matching_label(
+        #     '8')
+        # testself.birthday = WebElement(
+        #     testself.birthday.parent, testself.birthday.id)
+        # testself.birthmonth = testself.classifier.find_button_matching_label(
+        #     'nov')
+        # testself.birthmonth = WebElement(
+        #     testself.birthmonth.parent, testself.birthmonth.id)
+        # testself.birthyear = testself.classifier.find_button_matching_label(
+        #     '1997')
+        # testself.birthyear = WebElement(
+        #     testself.birthyear.parent, testself.birthyear.id)
+        # testself.gender = testself.classifier.find_button_matching_label(
+        #     'male')
+        # testself.gender = WebElement(
+        #     testself.gender.parent, testself.gender.id)
         testself.sinup = testself.classifier.find_button_matching_label(
             'sign up')
         testself.sinup = WebElement(testself.sinup.parent, testself.sinup.id)
