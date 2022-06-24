@@ -2,8 +2,8 @@
     TC_03_Registration
     Refer to https://www.loginradius.com/blog/async/test-cases-for-registration-and-login-page/"""
 
-from packages.testsuites.suite_registration.init import (
-    SetUp, TearDown, project_logger, TestData, unittest, setup_selenium_driver)
+from packages.testsuites.suite_registration.init import TearDown, SetUp, TestData, unittest, project_logger, setup_selenium_driver
+
 from packages.tempmail import TempMail
 
 logger = project_logger("Registration Test Case 2")
@@ -16,20 +16,20 @@ class Test_03_Registration(unittest.TestCase):  # pylint: disable = invalid-name
     def setUp(self):
         """called before every test"""
         self.driver = setup_selenium_driver()
-        SetUp(self, self.driver)
+        self.elements = SetUp(self.driver)
         self.temp_mail = TempMail()
-        self.test_data = TestData()
+        TestData()
 
     def test_01_required_fields(self):
         """Check user should Register by filling all the required fields"""
-        self.firstname.send_keys(  # pylint:disable=no-member
+        self.elements.firstname.send_keys(  # pylint:disable=no-member
             TestData.FRIST_NAME)
         self.lasttname.send_keys(  # pylint:disable=no-member
             TestData.LAST_NAME)
         email = self.temp_mail.get_email()
-        self.email.send_keys(email)  # pylint:disable=no-member
-        self.reemail.send_keys(email)  # pylint:disable=no-member
-        self.password.send_keys(  # pylint:disable=no-member
+        self.elements.email.send_keys(email)  # pylint:disable=no-member
+        self.elements.reemail.send_keys(email)  # pylint:disable=no-member
+        self.elements.password.send_keys(  # pylint:disable=no-member
             TestData.PASSWORD_NUM_LETTER)
         self.birthday.click()  # pylint:disable=no-member
         self.birthmonth.click()  # pylint:disable=no-member
