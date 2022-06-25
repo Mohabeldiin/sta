@@ -6,7 +6,7 @@ from packages.testsuites.suite_registration.init import TearDown, SetUp, TestDat
 
 from packages.tempmail import TempMail
 
-logger = project_logger("Registration Test Case 2")
+logger = project_logger("Registration Test Case 3")
 
 
 class Test_03_Registration(unittest.TestCase):  # pylint: disable = invalid-name

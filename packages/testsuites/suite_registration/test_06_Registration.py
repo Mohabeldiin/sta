@@ -25,24 +25,32 @@ class Test_06_Registration(unittest.TestCase):  # pylint: disable = invalid-name
         self.driver = setup_selenium_driver()
         self.elements = SetUp(self.driver)
 
-    def test_01_Email_validation(self):
+    def test_01_Email_validation(self):  # pylint: disable = invalid-name
         """Check the Email text field that has an Email address without @ symbol."""
         self.elements.email.send_keys(TestData.EMAIL_WITHOUT_AT)
+        # ree email
+        self.elements.sinup.click()
         #self.assertTrue(foo ,"Email text field that has an Email address without @ symbol.")
 
-    def test_02_Email_validation(self):
+    def test_02_Email_validation(self):  # pylint: disable = invalid-name
         """Check the Email text field that has a random string instead of a real email."""
         self.elements.email.send_keys(TestData.RANDOM)
+        # ree email
+        self.elements.sinup.click()
         #self.assertTrue(foo ,"Email text field that has a random string instead of a real email.")
 
-    def test_03_Email_validation(self):
+    def test_03_Email_validation(self):  # pylint: disable = invalid-name
         """Check the Email text field that has @ symbol written in words."""
         self.elements.email.send_keys(TestData.EMAIL_AT_IN_WORD)
+        # ree email
+        self.elements.sinup.click()
         #self.assertTrue(foo ,"Email text field that has @ symbol written in words.")
 
-    def test_04_Email_validation(self):
+    def test_04_Email_validation(self):  # pylint: disable = invalid-name
         """Check the Email text field that has a missing dot in the email address."""
         self.elements.email.send_keys(TestData.EMAIL_WITHOUT_DOT)
+        # ree email
+        self.elements.sinup.click()
         #self.assertTrue(foo ,"Email text field that has a missing dot in the email address.")
 
     def tearDown(self):

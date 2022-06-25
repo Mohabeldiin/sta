@@ -1,0 +1,33 @@
+2022-06-18 21:10:59 - Test Link - INFO: Getting Link from Database
+2022-06-18 21:10:59 - Test Link - DEBUG: Requesting Link
+2022-06-18 21:10:59 - urllib3.connectionpool - DEBUG: Starting new HTTPS connection (1): a5r-testing.herokuapp.com:443
+2022-06-18 21:11:00 - urllib3.connectionpool - DEBUG: https://a5r-testing.herokuapp.com:443 "GET /getLink HTTP/1.1" 200 35089
+2022-06-18 21:11:00 - Test Link - DEBUG: Response Received
+2022-06-18 21:11:00 - Test Link - DEBUG: Link Received: https://www.facebook.com/
+2022-06-18 21:11:00 - Test Link - INFO: Link Received
+2022-06-18 21:11:00 - Test Link - INFO: Getting Link from Database
+2022-06-18 21:11:00 - Test Link - DEBUG: Requesting Link
+2022-06-18 21:11:00 - urllib3.connectionpool - DEBUG: Starting new HTTPS connection (1): a5r-testing.herokuapp.com:443
+2022-06-18 21:11:02 - urllib3.connectionpool - DEBUG: https://a5r-testing.herokuapp.com:443 "GET /getLink HTTP/1.1" 200 35089
+2022-06-18 21:11:02 - Test Link - DEBUG: Response Received
+2022-06-18 21:11:02 - Test Link - DEBUG: Link Received: https://www.facebook.com/
+2022-06-18 21:11:02 - Test Link - INFO: Link Received
+2022-06-18 21:11:02 - Test Link - INFO: Valid url: https://www.facebook.com/
+2022-06-18 21:11:02 - Test Link - DEBUG: Returning url: facebook.com
+2022-06-18 21:11:02 - Registration Test Suite initialization - INFO: initializing test data
+2022-06-18 21:11:02 - Test Link - INFO: Getting Link from Database
+2022-06-18 21:11:02 - Test Link - DEBUG: Requesting Link
+2022-06-18 21:11:02 - urllib3.connectionpool - DEBUG: Starting new HTTPS connection (1): a5r-testing.herokuapp.com:443
+2022-06-18 21:11:03 - urllib3.connectionpool - DEBUG: https://a5r-testing.herokuapp.com:443 "GET /getLink HTTP/1.1" 200 35089
+2022-06-18 21:11:03 - Test Link - DEBUG: Response Received
+2022-06-18 21:11:03 - Test Link - DEBUG: Link Received: https://www.facebook.com/
+2022-06-18 21:11:03 - Test Link - INFO: Link Received
+2022-06-18 21:11:03 - Test Link - INFO: Getting Link from Database
+2022-06-18 21:11:03 - Test Link - DEBUG: Requesting Link
+2022-06-18 21:11:03 - urllib3.connectionpool - DEBUG: Starting new HTTPS connection (1): a5r-testing.herokuapp.com:443
+2022-06-18 21:11:04 - urllib3.connectionpool - DEBUG: https://a5r-testing.herokuapp.com:443 "GET /getLink HTTP/1.1" 200 35089
+2022-06-18 21:11:05 - Test Link - DEBUG: Response Received
+2022-06-18 21:11:05 - Test Link - DEBUG: Link Received: https://www.facebook.com/
+2022-06-18 21:11:05 - Test Link - INFO: Link Received
+2022-06-18 21:11:05 - Test Link - INFO: Valid url: https://www.facebook.com/
+2022-06-18 21:11:05 - Test Link - DEBUG: Returning url: facebook.com

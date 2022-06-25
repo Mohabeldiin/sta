@@ -1,35 +1,32 @@
-"""this test case Check all the optional fields when filling data
+"""Check all the optional fields when filling data
     TC_05_Registration from https://www.loginradius.com/blog/async/test-cases-for-registration-and-login-page/"""
-import unittest
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
+
+from packages.testsuites.suite_registration.init import TearDown, SetUp, TestData, unittest, project_logger, setup_selenium_driver
+
+logger = project_logger("Registration Test Case 5")
 
 
-class Test_05_Registration(unittest.TestCase):
+class Test_05_Registration(unittest.TestCase):  # pylint: disable = invalid-name
     """1- Enter valid data in optional fields.
        2- Enter valid data in required fields.
        3- Click on the Signup button."""
-    
+
     def setUp(self):
-        """this method will be called before every test"""
-        self.driver = webdriver.Chrome("C:\\Program Files (x86)\\chromedriver.exe")
-        self.driver.implicitly_wait(5)
-        self.driver.get('https://www.facebook.com/')
-        self.driver.maximize_window()
+        """Called before every test"""
+        self.driver = setup_selenium_driver()
+        self.elements = SetUp(self.driver)
 
-
-    def test_01_Optional_Fields(self):
+    def test_01_Optional_Fields(self):  # pylint: disable = invalid-name
         """Check all the optional fields when filling data"""
         pass
 
-
     def tearDown(self):
-        """this method will be called after every test"""
-        self.driver.quit()
+        """called after every test"""
+        TearDown(self.driver)
 
 
 if __name__ == "__main__":
-    """This is the main function will Run the Unit Test if this Moudle is not imported"""
-    unittest.main()
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(Test_05_Registration))
+    runner = unittest.TextTestRunner()
+    runner.run(suite)
