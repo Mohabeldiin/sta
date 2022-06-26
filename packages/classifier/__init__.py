@@ -47,9 +47,7 @@ class ClassifierClient(object):
     def find_button_matching_label(self, labeltomatch):
         """finds buttons matching the label"""
         elements = self.find_elements_matching_label(labeltomatch)
-
         for element in elements:
             if element.aria_role == "button":
                 return WebElement(element.parent, element.id)
-
         return None

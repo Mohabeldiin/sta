@@ -22,20 +22,18 @@ class Test_03_Registration(unittest.TestCase):  # pylint: disable = invalid-name
 
     def test_01_required_fields(self):
         """Check user should Register by filling all the required fields"""
-        self.elements.firstname.send_keys(  # pylint:disable=no-member
-            TestData.FRIST_NAME)
-        self.lasttname.send_keys(  # pylint:disable=no-member
-            TestData.LAST_NAME)
+
+        self.elements.fname.send_keys(TestData.FRIST_NAME)
+        self.elements.lname.send_keys(TestData.LAST_NAME)
         email = self.temp_mail.get_email()
-        self.elements.email.send_keys(email)  # pylint:disable=no-member
-        self.elements.reemail.send_keys(email)  # pylint:disable=no-member
-        self.elements.password.send_keys(  # pylint:disable=no-member
-            TestData.PASSWORD_NUM_LETTER)
-        self.birthday.click()  # pylint:disable=no-member
-        self.birthmonth.click()  # pylint:disable=no-member
-        self.birthyear.click()  # pylint:disable=no-member
-        self.gender.click()  # pylint:disable=no-member
-        self.sinup.click()  # pylint:disable=no-member
+        self.elements.email.send_keys(email)
+        self.elements.password.send_keys(TestData.PASSWORD_NUM_LETTER)
+        self.elements.day.click()
+        self.elements.month.click()
+        self.elements.year.click()
+        self.elements.gender.click()
+        self.elements.sinup.click()
+        self.assertTrue(self.temp_mail.receive_mail(), "Registration failed")
 
     def tearDown(self):
         """called after every test"""

@@ -1,5 +1,4 @@
 {
-    "python.pythonPath": "C:\\Users\\mohab\\Documents\\VSCode\\GitHub\\websec_analytics\\envs\\bin\\python",
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
     "python.linting.flake8Enabled": false,
