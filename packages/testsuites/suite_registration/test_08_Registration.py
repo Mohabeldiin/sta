@@ -21,9 +21,10 @@ class Test_08_Registration(unittest.TestCase):  # pylint: disable = invalid-name
         """Check the phone number when passing alphanumeric data.\n
         EC: It should not show any validation message."""
         self.elements.email.send_keys(TestData.PHONE_NUMBER)
-        # ree email
-        self.elements.sinup.click()
-        #self.assertTrue(foo ,"Email text field that has @ symbol written in words.")
+        ER = True
+        AR = bool(self.elements.email.get_attribute('aria-invalid') == "true")
+        self.assertNotEqual(AR, ER,
+                            "the phone number when passing alphanumeric data.")
 
     def tearDown(self):
         """Called after every test"""
