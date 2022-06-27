@@ -50,17 +50,17 @@ class SetUp:  # pylint: disable = too-few-public-methods, too-many-instance-attr
                 self.newaccount.click()
                 time.sleep(5)
             self.email = self.classifier.find_text_field_matching_label(
-                'email')
+                'Mobile number or email address')
             self.password = self.classifier.find_text_field_matching_label(
-                'password')
+                'New password')
             self.fname = self.classifier.find_text_field_matching_label(
                 'first name')
             self.lname = self.classifier.find_text_field_matching_label(
-                'suername')
-            self.day = self.classifier.find_button_matching_label('8')
-            self.month = self.classifier.find_button_matching_label('nov')
-            self.year = self.classifier.find_button_matching_label('1997')
-            self.gender = self.classifier.find_button_matching_label('male')
+                'Surname')
+            self.day = self.classifier.find_elements_matching_label('8')[0]
+            self.month = self.classifier.find_elements_matching_label('nov')[0]
+            self.year = self.classifier.find_elements_matching_label('1997')[0]
+            self.gender = self.classifier.find_elements_matching_label('male')[0]
             self.sinup = self.classifier.find_button_matching_label('sign up')
             logger.info("test data initialized")
         except Exception as ex:
