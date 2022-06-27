@@ -1,16 +1,13 @@
 """Base for testsuites."""
 
-from cProfile import label
 import time
-from xml.etree.ElementTree import Element
 
 from packages.logger import project_logger
 from packages.classifier import ClassifierClient as classifier_client_python
 from packages.testlink import get_link_to_test_without_validate
 from packages.project_selenium import (setup_selenium_driver, teardown_selenium_driver,
                                        webdriver, selenium_exceptions,
-                                       By, EC, WebDriverWait, unittest,
-                                       WebElement)
+                                       By, EC, WebDriverWait, unittest)
 
 logger = project_logger("Registration Test Suite initialization")
 
