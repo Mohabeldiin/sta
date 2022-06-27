@@ -21,17 +21,19 @@ class Test_07_Registration(unittest.TestCase):  # pylint: disable = invalid-name
         """Check the valid email: test.22@gmail.com.
         EC: It should not show any validation message."""
         self.elements.email.send_keys(TestData.EMAIL_INVALID2)
-        # ree email
-        self.elements.sinup.click()
-        #self.assertTrue(foo ,"Email text field that has @ symbol written in words.")
+        ER = True
+        AR = bool(self.elements.email.get_attribute('aria-invalid') == "true")
+        self.assertNotEqual(AR, ER,
+                            "Email text field that has an Email address without @ symbol.")
 
     def test_02_Email_validation(self):  # pylint: disable = invalid-name
         """Check the valid email: test@gmail.com.
         EC: It should not show any validation message."""
         self.elements.email.send_keys(TestData.EMAIL_INVALID)
-        # ree email
-        self.elements.sinup.click()
-        #self.assertTrue(foo ,"Email text field that has @ symbol written in words.")
+        ER = True
+        AR = bool(self.elements.email.get_attribute('aria-invalid') == "true")
+        self.assertNotEqual(AR, ER,
+                            "Email text field that has an Email address without @ symbol.")
 
     def tearDown(self):
         """Called after every test"""
