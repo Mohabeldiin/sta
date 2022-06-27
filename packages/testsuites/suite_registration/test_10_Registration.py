@@ -27,6 +27,10 @@ class Test_10_Registration(unittest.TestCase):
         self.assertNotEqual(
             AR, ER, "the phone number when not pass country code.")
 
+    def tearDown(self):
+        """Called after every test"""
+        TearDown(self.driver)
+
 
 if __name__ == "__main__":
     suite = unittest.TestSuite()
