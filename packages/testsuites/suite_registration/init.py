@@ -20,6 +20,7 @@ class TestData:
     PASSWORD_LETTER = "Password"
     PASSWORD_NUM_LETTER = "Pass123456"
     PHONE_NUMBER = "+9190112244"
+    PHONE_NUMBER_WITHOUT_COUNTRY_CODE = "90112244"
     EMAIL_INVALID = "test@gmail.com"
     EMAIL_INVALID2 = "test.22@gmail.com"
     EMAIL_WITHOUT_AT = "testgmail.com"
@@ -60,7 +61,8 @@ class SetUp:  # pylint: disable = too-few-public-methods, too-many-instance-attr
             self.day = self.classifier.find_elements_matching_label('8')[0]
             self.month = self.classifier.find_elements_matching_label('nov')[0]
             self.year = self.classifier.find_elements_matching_label('1997')[0]
-            self.gender = self.classifier.find_elements_matching_label('male')[0]
+            self.gender = self.classifier.find_elements_matching_label('male')[
+                0]
             self.sinup = self.classifier.find_button_matching_label('sign up')
             logger.info("test data initialized")
         except Exception as ex:
