@@ -1,17 +1,10 @@
 """this test case Check the password limit when enter value less than min
     TC_11_Registration from https://www.loginradius.com/blog/async/test-cases-for-registration-and-login-page/"""
 
-import unittest
-from selenium import webdriver
-from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
 
+from packages.testsuites.suite_registration.init import TearDown, SetUp, TestData, unittest, project_logger, setup_selenium_driver
 
-class Test_Data(object):
-    """this class is enum holds the test data that is used in this test case"""
-    PASSWORD = "Password"
+logger = project_logger("Registration Test Case 9")
 
 
 class Test_11_Registration(unittest.TestCase):
@@ -23,72 +16,29 @@ class Test_11_Registration(unittest.TestCase):
             facebook does not have validation message for password length."""
 
     def setUp(self):
-        """this method will be called before every test"""
-        self.driver = webdriver.Chrome("C:\\Program Files (x86)\\chromedriver.exe")
-        self.driver.implicitly_wait(5)
-        self.driver.get('https://www.facebook.com/')
-        self.driver.maximize_window()
-        self.login_form_locator = (By.CLASS_NAME,"_9vtf")
-        self.creat_new_account_locator = (By.LINK_TEXT, "Create New Account")
-
-        try:
-            if WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located(self.login_form_locator)
-            ).is_displayed():
-                self.creat_new_acount = WebDriverWait(self.driver, 10).until(
-                    EC.element_to_be_clickable(self.creat_new_account_locator)
-                )
-                self.creat_new_acount.click()
-        except TimeoutException:
-            print("\n###############\n",TimeoutException.__doc__ , "\n###############\n")
-            assert False
-
-        self.password_textfiled_locator = (By.NAME, 'reg_passwd__')
-        self.sinUp_button_locator = (By.NAME, "websubmit")
-        self.error_message_locator = (By.ID, "foo")
-
+        """Called before every test"""
+        self.driver = setup_selenium_driver()
+        self.elements = SetUp(self.driver)
 
     def test_01_Password_Validation(self):
         """Check the password limit when enter value less than min\n
         EC: It should show validation message."""
-        
-        try:
-            try:
-                phone = WebDriverWait(self.driver, 10).until(
-                    EC.presence_of_element_located(self.password_textfiled_locator)
-                )
-                phone.send_keys(Test_Data.PASSWORD)
-            except AssertionError:
-                print("\n###############\n",AssertionError.__doc__ , "\n###############\n")
-                assert False
-            try:
-                sinup = WebDriverWait(self.driver, 10).until(
-                    EC.presence_of_element_located(self.sinUp_button_locator)
-                )
-                sinup.click()
-            except AssertionError:
-                print("\n###############\n",AssertionError.__doc__ , "\n###############\n")
-                assert False
-            try:
-                if WebDriverWait(self.driver, 10).until(
-                    EC.presence_of_element_located(self.error_message_locator)
-                ):
-                    assert True
-                else:
-                    print("EC != AC")
-                    assert False
-            except AssertionError:
-                print("\n###############\n",AssertionError.__doc__ , "\n###############\n")
-                assert False
-        except AssertionError:
-            print("\n###############\n",AssertionError.__doc__ , "\n###############\n")
-            assert False
+        self.elements.password.send_keys(
+            TestData.PASSWORD_LENGTH_LESS_THAN_MIN)
+        self.elements.sinup.click()
+        ER = True
+        AR = bool(self.elements.password.get_attribute(
+            'aria-invalid') == "true")
+        self.assertNotEqual(
+            AR, ER, "the password length when enter value less than min.")
 
     def tearDown(self):
-        """this method will be called after every test"""
-        self.driver.quit()
+        """Called after every test"""
+        TearDown(self.driver)
 
 
 if __name__ == "__main__":
-    """This is the main function will Run the Unit Test if this Moudle is not imported"""
-    unittest.main()
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(Test_11_Registration))
+    runner = unittest.TextTestRunner()
+    runner.run(suite)
