@@ -4,7 +4,7 @@
 
 from packages.testsuites.suite_registration.init import TearDown, SetUp, TestData, unittest, project_logger, setup_selenium_driver
 
-logger = project_logger("Registration Test Case 9")
+logger = project_logger("Registration Test Case 12")
 
 
 class Test_12_Registration(unittest.TestCase):
