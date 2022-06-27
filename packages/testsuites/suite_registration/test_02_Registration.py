@@ -22,12 +22,10 @@ class Test_02_Registration(unittest.TestCase):  # pylint: disable = invalid-name
         self.elements.sinup.click()
         ER = True
         AR = bool(self.elements.email.get_attribute('aria-invalid') == "true")
-        # self.assertTrue(AR == ER, "Fields are not Required")
         self.assertEqual(AR, ER, "Fields are not Required")
         AR = bool(self.elements.password.get_attribute(
             "aria-required") == "true")
         self.assertEqual(AR, ER, "Fields are not Required")
-        # self.assertTrue(AR == ER, "Fields are not Required")
 
     def tearDown(self):
         """called after every test"""
