@@ -1,7 +1,5 @@
 """Base for testsuites."""
 
-# import time
-
 from packages.logger import project_logger
 from packages.classifier import ClassifierClient as classifier_client_python
 from packages.testlink import get_link_to_test_without_validate
@@ -41,9 +39,9 @@ class SetUp:  # pylint: disable = too-few-public-methods, too-many-instance-attr
     def __init__(self, driver):
         try:
             logger.info("setting up the test")
+            driver.get(get_link_to_test_without_validate())
             self.classifier = classifier_client_python(driver)
             driver.implicitly_wait(5)
-            driver.get(get_link_to_test_without_validate())
             try:
                 self.newaccount = self.classifier.find_button_matching_label(
                     'Create New Account')
@@ -53,20 +51,22 @@ class SetUp:  # pylint: disable = too-few-public-methods, too-many-instance-attr
                     'Sign Up')
             finally:
                 self.newaccount.click()
-                # time.sleep(5)
             self.email = self.classifier.find_text_field_matching_label(
-                'Mobile number or email address')
+                'Mobile number or email address', update_elements=True)
             self.password = self.classifier.find_text_field_matching_label(
-                'New password')
+                'New password', update_elements=True)
             self.fname = self.classifier.find_text_field_matching_label(
-                'first name')
+                'first name', update_elements=True)
             self.lname = self.classifier.find_text_field_matching_label(
-                'Surname')
-            self.day = self.classifier.find_elements_matching_label('8')[0]
-            self.month = self.classifier.find_elements_matching_label('nov')[0]
-            self.year = self.classifier.find_elements_matching_label('1997')[0]
-            self.gender = self.classifier.find_elements_matching_label('male')[
-                0]
+                'Surname', update_elements=True)
+            self.day = self.classifier.find_elements_matching_label(
+                '8', update_elements=True)[0]
+            self.month = self.classifier.find_elements_matching_label(
+                'nov', update_elements=True)[0]
+            self.year = self.classifier.find_elements_matching_label(
+                '1997', update_elements=True)[0]
+            self.gender = self.classifier.find_elements_matching_label(
+                'male', update_elements=True)[0]
             self.sinup = self.classifier.find_button_matching_label('sign up')
             logger.info("test data initialized")
         except Exception as ex:
