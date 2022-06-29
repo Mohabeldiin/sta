@@ -22,21 +22,24 @@ class Test_19_Registration(unittest.TestCase):
             2- Click on Register button.
             EC:It should display error with required rules for password value
             (like it should contain a special character, a small case, a number)"""
-
-        self.elements.fname.send_keys(TestData.FRIST_NAME)
-        self.elements.lname.send_keys(TestData.LAST_NAME)
-        self.elements.email.send_keys(TestData.EMAIL_INVALID)
-        self.elements.password.send_keys(TestData.PASSWORD_LETTER)
-        self.elements.day.click()
-        self.elements.month.click()
-        self.elements.year.click()
-        self.elements.gender.click()
-        self.elements.sinup.click()
-        ER = True
-        AR = bool(self.elements.password.get_attribute(
-            'aria-invalid') == "true")
-        self.assertNotEqual(
-            AR, ER, "Length of the phone number is incorrect.")
+        try:
+            self.elements.fname.send_keys(TestData.FRIST_NAME)
+            self.elements.lname.send_keys(TestData.LAST_NAME)
+            self.elements.email.send_keys(TestData.EMAIL_INVALID)
+            self.elements.password.send_keys(TestData.PASSWORD_LETTER)
+            self.elements.day.click()
+            self.elements.month.click()
+            self.elements.year.click()
+            self.elements.gender.click()
+            self.elements.sinup.click()
+        except:
+            pass
+        finally:
+            ER = True
+            AR = bool(self.elements.password.get_attribute(
+                'aria-invalid') == "true")
+            self.assertNotEqual(
+                AR, ER, "Length of the phone number is incorrect.")
 
     def tearDown(self):
         """called after every test"""

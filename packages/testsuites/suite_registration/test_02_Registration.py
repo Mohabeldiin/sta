@@ -22,7 +22,7 @@ class Test_02_Registration(unittest.TestCase):  # pylint: disable = invalid-name
         self.elements.sinup.click()
         ER = True
         AR = bool(self.elements.email.get_attribute('aria-invalid') == "true")
-        self.assertEqual(AR, ER, "Fields are not Required")
+        self.assertNotEqual(AR, ER, "Fields are not Required")
         AR = bool(self.elements.password.get_attribute(
             "aria-required") == "true")
         self.assertEqual(AR, ER, "Fields are not Required")
