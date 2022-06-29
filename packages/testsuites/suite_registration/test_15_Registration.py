@@ -21,16 +21,19 @@ class Test_15_Registration(unittest.TestCase):
     def test_01_Required_Fields(self):
         """Verify if blank spaces are passed in required fields.\n
         EC: Those Blank spaces should trim and Validation error message for required fields should visible.\n"""
-        self.elements.fname.send_keys(TestData.BLANK_SPACES)
-        self.elements.lname.send_keys(TestData.BLANK_SPACES)
-        self.elements.email.send_keys(TestData.BLANK_SPACES)
-        self.elements.password.send_keys(TestData.BLANK_SPACES)
-        self.elements.sinup.click()
-        ER = True
-        AR = bool(self.elements.fname.get_attribute(
-            'aria-invalid') == "true")
-        self.assertEqual(
-            AR, ER, "the blank spaces in required fields.")
+        try:
+            self.elements.fname.send_keys(TestData.BLANK_SPACES)
+            self.elements.lname.send_keys(TestData.BLANK_SPACES)
+            self.elements.email.send_keys(TestData.BLANK_SPACES)
+            self.elements.password.send_keys(TestData.BLANK_SPACES)
+            self.elements.sinup.click()
+            ER = True
+            AR = bool(self.elements.fname.get_attribute(
+                'aria-invalid') == "true")
+            self.assertEqual(
+                AR, ER, "the blank spaces in required fields.")
+        except:
+            pass
 
     def tearDown(self):
         """Called after every test"""

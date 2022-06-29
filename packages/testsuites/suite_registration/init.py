@@ -1,6 +1,6 @@
 """Base for testsuites."""
 
-import time
+# import time
 
 from packages.logger import project_logger
 from packages.classifier import ClassifierClient as classifier_client_python
@@ -53,7 +53,7 @@ class SetUp:  # pylint: disable = too-few-public-methods, too-many-instance-attr
                     'Sign Up')
             finally:
                 self.newaccount.click()
-                time.sleep(5)
+                # time.sleep(5)
             self.email = self.classifier.find_text_field_matching_label(
                 'Mobile number or email address')
             self.password = self.classifier.find_text_field_matching_label(
