@@ -25,7 +25,7 @@ class Test_01_User_Interface(unittest.TestCase):  # pylint: disable = invalid-na
             self.assertTrue(self.elements.sinup.is_displayed(),  # pylint: disable = no-member
                             "UI is not present")
         except:
-            passw
+            pass
 
     def tearDown(self):
         """called after every test"""

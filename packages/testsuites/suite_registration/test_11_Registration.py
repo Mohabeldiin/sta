@@ -23,9 +23,9 @@ class Test_11_Registration(unittest.TestCase):
     def test_01_Password_Validation(self):
         """Check the password limit when enter value less than min\n
         EC: It should show validation message."""
-        self.elements.password.send_keys(
-            TestData.PASSWORD_LENGTH_LESS_THAN_MIN)
         try:
+            self.elements.password.send_keys(
+            TestData.PASSWORD_LENGTH_LESS_THAN_MIN)
             self.elements.sinup.click()
             ER = True
             AR = bool(self.elements.password.get_attribute(

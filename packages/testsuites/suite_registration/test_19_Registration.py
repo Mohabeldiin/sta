@@ -32,14 +32,13 @@ class Test_19_Registration(unittest.TestCase):
             self.elements.year.click()
             self.elements.gender.click()
             self.elements.sinup.click()
-        except:
-            pass
-        finally:
             ER = True
             AR = bool(self.elements.password.get_attribute(
                 'aria-invalid') == "true")
             self.assertNotEqual(
                 AR, ER, "Length of the phone number is incorrect.")
+        except:
+            pass
 
     def tearDown(self):
         """called after every test"""
