@@ -38,9 +38,10 @@ class SetUp:  # pylint: disable = too-few-public-methods, too-many-instance-attr
     def __init__(self, driver):
         try:
             logger.info("setting up the test")
-            driver.implicitly_wait(5)
-            driver.get(get_link_to_test_without_validate())
-            self.classifier = classifier_client_python(driver)
+            self.driver = driver
+            self.driver.implicitly_wait(5)
+            self.driver.get(get_link_to_test_without_validate())
+            self.classifier = classifier_client_python(self.driver)
             self.email = self.classifier.find_text_field_matching_label(
                 'Email address or phone number')
             self.password = self.classifier.find_text_field_matching_label(
