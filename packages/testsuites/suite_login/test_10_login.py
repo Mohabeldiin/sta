@@ -1,15 +1,13 @@
-"""Passing invalid email and password
- TC_01_LOGIN 
- Refer to  https://sampletestcases.com/test-cases-for-fb-login-page/ """
- 
+"""Passing invalid phone and vaild password
+ TC_10_LOGIN Refer to https://sampletestcases.com/test-cases-for-fb-login-page/ """
+
 from packages.logger import project_logger
 from packages.testsuites.suite_login.init import (
     TestData, SetUp, TearDown, setup_selenium_driver, unittest)
 
-logger = project_logger("Login Test Case 2")
+logger = project_logger("Login Test Case 10")
 
-class test_02_login(unittest.TestCase):  # pylint: disable=invalid-name
-    """"Passing invalid email and password"""
+class test_10_login(unittest.TestCase):  # pylint: disable=invalid-name
 
     def setUp(self):
         """called before every test"""
@@ -18,12 +16,12 @@ class test_02_login(unittest.TestCase):  # pylint: disable=invalid-name
         self.testdata = TestData()
         logger.info("setting up the test")
 
-    def test_02(self):
-        """Passing invalid email and password"""
+    def test_10(self):
+        """Passing invalid phone and vaild password"""
         self.email.send_keys(  # pylint: disable=no-member
-            self.testdata.EMAIL_INVALID)
+            self.testdata.EMAIL_NUM)
         self.password.send_keys(  # pylint: disable=no-member
-            self.testdata.PASSWORD_NUM)
+            self.testdata.PASSWORD_VALID)
         self.login.click()  # pylint: disable=no-member
         incorrect = self.classifier.find_text_field_matching_label(# pylint: disable=no-member
             "incorrect")
@@ -33,9 +31,8 @@ class test_02_login(unittest.TestCase):  # pylint: disable=invalid-name
         """called after every test"""
         TearDown(self.driver)
 
-
 if __name__ == "__main__":
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(test_02_login))
+    suite.addTest(unittest.makeSuite(test_10_login))
     runner = unittest.TextTestRunner()
     runner.run(suite)

@@ -41,9 +41,9 @@ class SetUp:  # pylint: disable = too-few-public-methods, too-many-instance-attr
     def __init__(self, driver):
         try:
             logger.info("setting up the test")
-            self.classifier = classifier_client_python(driver)
             driver.implicitly_wait(5)
             driver.get(get_link_to_test_without_validate())
+            self.classifier = classifier_client_python(driver)
             try:
                 self.newaccount = self.classifier.find_button_matching_label(
                     'Create New Account')

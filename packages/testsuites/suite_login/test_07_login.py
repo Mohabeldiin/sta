@@ -1,15 +1,14 @@
-"""Passing invalid email and password
- TC_01_LOGIN 
- Refer to  https://sampletestcases.com/test-cases-for-fb-login-page/ """
- 
+"""Passing blank email and password
+ TC_07_LOGIN Refer to https://sampletestcases.com/test-cases-for-fb-login-page/ """
+
 from packages.logger import project_logger
 from packages.testsuites.suite_login.init import (
     TestData, SetUp, TearDown, setup_selenium_driver, unittest)
 
-logger = project_logger("Login Test Case 2")
+logger = project_logger("Login Test Case 7")
 
-class test_02_login(unittest.TestCase):  # pylint: disable=invalid-name
-    """"Passing invalid email and password"""
+class test_07_login(unittest.TestCase):
+    """Passing blank email and password"""
 
     def setUp(self):
         """called before every test"""
@@ -18,24 +17,22 @@ class test_02_login(unittest.TestCase):  # pylint: disable=invalid-name
         self.testdata = TestData()
         logger.info("setting up the test")
 
-    def test_02(self):
-        """Passing invalid email and password"""
+    def test_07(self):
+        """Passing blank email and password"""
         self.email.send_keys(  # pylint: disable=no-member
-            self.testdata.EMAIL_INVALID)
+            self.testdata.BLANK_SPACES)
         self.password.send_keys(  # pylint: disable=no-member
-            self.testdata.PASSWORD_NUM)
+            self.testdata.BLANK_SPACES)
         self.login.click()  # pylint: disable=no-member
-        incorrect = self.classifier.find_text_field_matching_label(# pylint: disable=no-member
-            "incorrect")
-        self.assertTrue(incorrect.is_displayed(), "Incorrect email or password")
+        self.assertTrue(self.classifier.find_text_field_matching_label(# pylint: disable=no-member
+            "blank").is_displayed(), "Email is required")
 
     def tearDown(self):
         """called after every test"""
         TearDown(self.driver)
 
-
 if __name__ == "__main__":
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(test_02_login))
+    suite.addTest(unittest.makeSuite(test_07_login))
     runner = unittest.TextTestRunner()
     runner.run(suite)
