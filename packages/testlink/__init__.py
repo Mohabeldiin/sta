@@ -55,15 +55,15 @@ def get_link_to_test(id:str):
 def get_link_to_test_without_validate(id:str):
     """Gets the Link from the database"""
     logger.info("Getting Link from Database")
-    old_link = "https://a5r-testing.herokuapp.com/getLink"
-    link = f"https://a5r-testing.herokuapp.com/Url/{id}"
+    # old_link = "https://a5r-testing.herokuapp.com/getLink"
+    link = f"https://staapi.herokuapp.com/Url/{id}"
     logger.debug("Requesting Link")
     response = requests.get(link)
     logger.debug("Response Received")
     data = json.loads(response.text)
-    logger.debug("Link Received: %s", data['get'][-1]['link'])
+    logger.debug("Link Received: %s", data['get']['link'])
     logger.info("Link Received")
-    return data['get'][-1]['link']
+    return data['get']['link']
 
 
 __author__ = "Mohab Mohsen"

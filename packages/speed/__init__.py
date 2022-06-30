@@ -104,4 +104,6 @@ class SpeedApi:
 if __name__ == "__main__":
     # app = SpeedApi("https://www.google.com")
     app = SpeedApi(parser.parse_args())
+    # args.id = "62bceb22c08164c7e7ce9ad5"
+    # app = SpeedApi("--id 62bceb22c08164c7e7ce9ad5")
     print(app.get())

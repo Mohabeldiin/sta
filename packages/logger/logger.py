@@ -65,7 +65,7 @@ def get_parser():
     parser.add_argument(
         "--id",
         type=str,
-        default="8000",
+        default="62bceb22c08164c7e7ce9ad5",
         help="id sent by the server to get the test link",)
     return parser
 
