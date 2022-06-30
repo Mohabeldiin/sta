@@ -1,20 +1,25 @@
 """"SEO Using SE Ranking: seranking.com"""
 import arabic_reshaper
-from packages.logger import setup_logger
+from packages.logger import project_logger, get_parser
 from packages.project_selenium import (EC, By, WebDriverWait,
                                        selenium_exceptions,
                                        setup_selenium_driver,
                                        teardown_selenium_driver)
 from packages.testlink import get_link_to_test
 
-logger = setup_logger("SEO")
+logger = project_logger("SEO")
+
+
+parser = get_parser()
 
 
 class SEORanking():
     """SEO Using SE Ranking: seranking.com"""
 
-    def __init__(self, url: str = get_link_to_test()):
+    # def __init__(self, url: str = get_link_to_test()):
+    def __init__(self, args):
         """Initializes seo"""
+        url = get_link_to_test(args.id)
         self.driver = setup_selenium_driver()
         api = f"https://online.seranking.com/research.competitor.html/organic/keywords?input={url}&mode=base_domain&source=eg"  # pylint: disable=line-too-long
         self.__open_seranking(api)
@@ -179,7 +184,7 @@ class SEORanking():
                     '\uFB50' <= character <= '\uFDFF' or
                     '\uFE70' <= character <= '\uFEFF' or
                     '\U00010E60' <= character <= '\U00010E7F' or
-                    '\U0001EE00' <= character <= '\U0001EEFF'):
+                        '\U0001EE00' <= character <= '\U0001EEFF'):
                     keyword = arabic_reshaper.reshape(keyword)[::-1]
                 keywords.append(keyword)
                 logger.debug("Keyword: %s", keyword)
@@ -227,6 +232,7 @@ class SEORanking():
 
 
 if __name__ == '__main__':
-    seo = SEORanking("https://www.google.com")
+    # seo = SEORanking("https://www.google.com")
+    seo = SEORanking(parser.parse_args())
     print(seo.get_result())
     del seo

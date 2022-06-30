@@ -1,7 +1,7 @@
 """Base logger for the project
 
     for applaing BOM Module"""
-from .logger import setup_logger
+from .logger import setup_logger, get_parser
 
 CRITICAL = 50
 ERROR = 40
@@ -22,3 +22,5 @@ def project_logger(logger_name: str, logger_level=DEBUG):
         logger: logger object."""
     logger_obj = setup_logger(logger_name, logger_level)
     return logger_obj
+
+__all__ = ["project_logger", "setup_logger", "get_parser"]

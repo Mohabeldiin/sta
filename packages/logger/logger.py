@@ -12,6 +12,7 @@
     Returns:
         logging.Logger: logger"""
 import logging
+import argparse
 
 CRITICAL = 50
 ERROR = 40
@@ -54,3 +55,18 @@ def setup_logger(
         filename=logger_filename,
         filemode=logger_filemode)
     return logging.getLogger(logger_name)
+
+
+def get_parser():
+    """Gets the parser
+        Returns:
+            argparse.ArgumentParser: parser"""
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--id",
+        type=str,
+        default="8000",
+        help="id sent by the server to get the test link",)
+    return parser
+
+__all__ = ["setup_logger", "get_parser"]

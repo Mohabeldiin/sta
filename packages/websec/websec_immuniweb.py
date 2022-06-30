@@ -7,7 +7,7 @@
 
 import time
 
-from packages.logger import project_logger
+from packages.logger import project_logger, get_parser
 from packages.project_selenium.driver import (setup_selenium_driver,
                                               teardown_selenium_driver)
 from packages.project_selenium.selenium import (EC, By, WebDriverWait,
@@ -15,6 +15,8 @@ from packages.project_selenium.selenium import (EC, By, WebDriverWait,
 from packages.testlink import get_link_to_test
 
 logger = project_logger("WebSec")
+
+parser = get_parser()
 
 
 class Locators:
@@ -38,9 +40,9 @@ class Locators:
 class WebSec(Locators):
     """WebSite Security Assessment Tool"""
 
-    def __init__(self,  url=get_link_to_test()) -> None:
+    def __init__(self, args) -> None:
         """Initializes the class"""
-        self.__url = url
+        self.__url = get_link_to_test(args.id)
         self.__driver = setup_selenium_driver()
         self.__open_immuniweb(self._IMMUNIWEB)
         self.__start_scan(self.__url)
@@ -329,7 +331,7 @@ class WebSec(Locators):
 
 
 if __name__ == "__main__":
-    websec = WebSec("https://www.modern-academy.edu.eg/")
+    # websec = WebSec("https://www.modern-academy.edu.eg/")
     #websec = WebSec("https://www.facebook.com/")
-    websec = WebSec()
+    websec = WebSec(parser.parse_args())
     print(websec())

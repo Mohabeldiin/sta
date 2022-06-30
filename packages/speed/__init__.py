@@ -3,9 +3,13 @@
 import json
 import urllib.request
 
-from packages.logger import setup_logger
+from packages.logger import setup_logger, get_parser
+from packages.testlink import get_link_to_test
 
 logger = setup_logger("Speed API")
+
+
+parser = get_parser()
 
 
 class SpeedApi:
@@ -17,9 +21,10 @@ class SpeedApi:
     Returns:
         data: data from the API"""
 
-    def __init__(self, website: str):
+    def __init__(self, args):
         """Initialize Speed API"""
         logger.info("Initializing Speed API")
+        website = get_link_to_test(args.id)
         url = f"https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url={website}&strategy=desktop&key=AIzaSyCcDNbRIvDPnuOM1TdCwoyzmP6NiGOkcLU"  # pylint: disable=line-too-long
         with urllib.request.urlopen(url) as response:
             self.data = json.loads(response.read())
@@ -97,5 +102,6 @@ class SpeedApi:
 
 
 if __name__ == "__main__":
-    app = SpeedApi("https://www.google.com")
+    # app = SpeedApi("https://www.google.com")
+    app = SpeedApi(parser.parse_args())
     print(app.get())

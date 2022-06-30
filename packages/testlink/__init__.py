@@ -46,23 +46,17 @@ def validate_url(url: str) -> str:
     return url
 
 
-def get_link_to_test():
+def get_link_to_test(id:str):
     """Gets the Link from the database and validate it."""
     logger.info("Getting Link from Database")
-    link = "https://a5r-testing.herokuapp.com/getLink"
-    logger.debug("Requesting Link")
-    response = requests.get(link)
-    logger.debug("Response Received")
-    data = json.loads(response.text)
-    logger.debug("Link Received: %s", data['get'][-1]['link'])
-    logger.info("Link Received")
-    return validate_url(get_link_to_test_without_validate())
+    return validate_url(get_link_to_test_without_validate(id))
 
 
-def get_link_to_test_without_validate():
+def get_link_to_test_without_validate(id:str):
     """Gets the Link from the database"""
     logger.info("Getting Link from Database")
-    link = "https://a5r-testing.herokuapp.com/getLink"
+    old_link = "https://a5r-testing.herokuapp.com/getLink"
+    link = f"https://a5r-testing.herokuapp.com/Url/{id}"
     logger.debug("Requesting Link")
     response = requests.get(link)
     logger.debug("Response Received")
