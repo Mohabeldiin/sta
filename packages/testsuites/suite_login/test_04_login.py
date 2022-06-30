@@ -14,20 +14,20 @@ class test_04_login(unittest.TestCase):
     def setUp(self):
         """called before every test"""
         self.driver = setup_selenium_driver()
-        SetUp(self, self.driver)
+        self.elements = SetUp(self.driver)
         self.testdata = TestData()
         logger.info("setting up the test")
     
     def test_04(self):
         """Passing invalid phone number and invalid password"""
         try:
-            self.email.send_keys(  # pylint: disable=no-member
+            self.elements.email.send_keys(  # pylint: disable=no-member
             self.testdata.EMAIL_NUM)
-            self.password.send_keys(  # pylint: disable=no-member
+            self.elements.password.send_keys(  # pylint: disable=no-member
             self.testdata.PASSWORD_NUM)
-            self.login.click()  # pylint: disable=no-member
-            self.assertTrue(self.email.is_displayed(), "Email field is not displayed")
-            self.assertTrue(self.password.is_displayed(), "Password field is not displayed")
+            self.elements.login.click()  # pylint: disable=no-member
+            self.assertTrue(self.elements.email.is_displayed(), "Email field is not displayed")
+            self.assertTrue(self.elements.password.is_displayed(), "Password field is not displayed")
         except:
             pass    
     
@@ -38,6 +38,6 @@ class test_04_login(unittest.TestCase):
 
 if __name__ == "__main__":
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuit(test_04_login))
-    runner = unittest.TestTestRunner()
-    runner.run(suite)                
+    suite.addTest(unittest.makeSuite(test_04_login))
+    runner = unittest.TextTestRunner()
+    runner.run(suite)

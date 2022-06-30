@@ -37,6 +37,6 @@ class test_03_login(unittest.TestCase):
 
 if __name__ == "__main__":
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(test_03_login))
+    suite.add0Test(unittest.makeSuite(test_03_login))
     runner = unittest.TextTestRunner()
     runner.run(suite)
