@@ -10,7 +10,7 @@ logger = project_logger("Registration Test Case 3")
 
 
 class Test_03_Registration(unittest.TestCase):  # pylint: disable = invalid-name
-    """1- Enter valid values in the required fields.
+    """1- Enter Teamp Email in the required fields.
        2- Click on the Register button."""
 
     def setUp(self):
@@ -37,7 +37,7 @@ class Test_03_Registration(unittest.TestCase):  # pylint: disable = invalid-name
             self.elements.gender.click()
             self.elements.sinup.click()
             self.assertTrue(self.temp_mail.receive_mail(),
-                            "Registration failed")
+                            "Registration Success using Teamp Email")
         except:
             pass
 
