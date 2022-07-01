@@ -1,6 +1,5 @@
 """foo"""
 
-from packages.testsuites import config
 from packages.testsuites.suite_registration.test_19_registration import Test_19_Registration
 from packages.testsuites.suite_registration.test_18_registration import Test_18_Registration
 from packages.testsuites.suite_registration.test_17_registration import Test_17_Registration
@@ -40,13 +39,11 @@ from packages.testsuites.suite_login.test_17_login import test_17_login
 from packages.testsuites.suite_login.test_18_login import test_18_login
 from packages.testsuites.suite_login.test_19_login import test_19_login
 from packages.testsuites.suite_login.test_20_login import test_20_login
-from packages.testsuites.suite_registration.init import project_logger, unittest, get_parser
+from packages.testsuites.suite_registration.init import project_logger, unittest
 
 logger = project_logger("Registration Test Suite")
 
 logger.info("Collecting Registration Test Suite")
-
-parser = get_parser()
 
 suite_login = unittest.TestSuite()
 suite_registration = unittest.TestSuite()
@@ -94,9 +91,14 @@ suite_login.addTest(unittest.makeSuite(test_20_login))
 
 logger.info("Running Registration Test Suite")
 
-args = parser.parse_args()
 
-config.id = args.id
-
-result_login = runner.run(suite_login)
-result_registration = runner.run(suite_registration)
+def get_result():
+    result_login = runner.run(suite_login)
+    result_registration = runner.run(suite_registration)
+    result = {
+        "login_pass": int(result_login.testsRun - result_login.failures),
+        "login_fall": result_login.failures,
+        "registration_pass": int(result_registration.testsRun - result_registration.failures),
+        "registration_fall": result_registration.failures
+    }
+    return result

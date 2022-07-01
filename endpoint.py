@@ -2,6 +2,7 @@ from flask import Flask, request
 from packages.websec import WebSec
 from packages.speed import SpeedApi
 from packages.seo import SEORanking
+from packages.testsuites.all_test_cases import get_result
 
 app = Flask(__name__)
 
@@ -20,6 +21,8 @@ def process_json():
         elif data['name'] == "security":
             security = WebSec(data)
             result = security()
+        elif data['name'] == "selenium":
+            result = get_result()
         elif data['name'] == "all":
             speed = SpeedApi(data)
             result_speed = speed.get()
@@ -27,8 +30,10 @@ def process_json():
             result_seo = seo.get_result()
             security = WebSec(data)
             result_sec = security()
+            result_selenium = get_result()
             result = {'speed': result_speed,
-                      'seo': result_seo, 'security': result_sec}
+                      'seo': result_seo, 'security': result_sec,
+                      'selenium': result_selenium}
         return {'message': 200, 'data': result}
     else:
         return '415 Unsupported Media Type'
