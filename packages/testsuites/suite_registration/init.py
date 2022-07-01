@@ -1,8 +1,7 @@
 """Base for testsuites."""
 
-# import time
-
-from packages.logger import project_logger
+from packages.testsuites import config
+from packages.logger import project_logger, get_parser
 from packages.classifier import ClassifierClient as classifier_client_python
 from packages.testlink import get_link_to_test_without_validate
 from packages.project_selenium import (setup_selenium_driver, teardown_selenium_driver,
@@ -42,18 +41,17 @@ class SetUp:  # pylint: disable = too-few-public-methods, too-many-instance-attr
         try:
             logger.info("setting up the test")
             driver.implicitly_wait(5)
-            driver.get(get_link_to_test_without_validate())
+            driver.get(get_link_to_test_without_validate(config.id))
             self.classifier = classifier_client_python(driver)
             try:
                 self.newaccount = self.classifier.find_button_matching_label(
                     'Create New Account')
-            except Exception as ex:  # pylint: disable = broad-except
+            except Exception as ex:
                 logger.error(ex)
                 self.newaccount = self.classifier.find_button_matching_label(
                     'Sign Up')
             finally:
                 self.newaccount.click()
-                # time.sleep(5)
             self.email = self.classifier.find_text_field_matching_label(
                 'Mobile number or email address')
             self.password = self.classifier.find_text_field_matching_label(
@@ -95,7 +93,7 @@ class TearDown():  # pylint: disable = too-few-public-methods
 
 
 __all__ = ["SetUp", "TearDown", "webdriver", "selenium_exceptions", "By", "EC", "WebDriverWait",
-           "unittest", "project_logger", "classifier_client_python",
+           "unittest", "project_logger", "classifier_client_python", "get_parser",
            "get_link_to_test_without_validate", "setup_selenium_driver"]
 __author__ = "Mohab Mohsen"
 __license__ = "MIT"

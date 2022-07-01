@@ -42,7 +42,11 @@ class WebSec(Locators):
 
     def __init__(self, args) -> None:
         """Initializes the class"""
-        self.__url = get_link_to_test(args.id)
+        try:
+            self.__url = get_link_to_test(args['id'])
+        except:
+            self.__url = get_link_to_test(args.id)
+
         self.__driver = setup_selenium_driver()
         self.__open_immuniweb(self._IMMUNIWEB)
         self.__start_scan(self.__url)
@@ -239,13 +243,28 @@ class WebSec(Locators):
             Raises:
                 Exception: if any exception"""
         logger.info("Getting scan results")
-        final_score = self.__handel_get_result(self._SCAN_FINAL_SCORE)
-        server_ip = self.__handel_get_result(self._SCAN_SERVER_IP)
-        software_found = self.__handel_get_result(self._WEB_SOFTWARE_FOUND)
-        software_outdated = self.__handel_get_result(
-            self._WEB_SOFTWARE_OUTDATED)
-        software_vulnerabil = self.__handel_get_result(
-            self._WEB_SOFTWARE_VULNERABIL)
+        try:
+            final_score = self.__handel_get_result(self._SCAN_FINAL_SCORE)
+        except:
+            final_score = {}
+        try:
+            server_ip = self.__handel_get_result(self._SCAN_SERVER_IP)
+        except:
+            server_ip = {}
+        try:
+            software_found = self.__handel_get_result(self._WEB_SOFTWARE_FOUND)
+        except:
+            software_found = {}
+        try:
+            software_outdated = self.__handel_get_result(
+                self._WEB_SOFTWARE_OUTDATED)
+        except:
+            software_outdated = {}
+        try:
+            software_vulnerabil = self.__handel_get_result(
+                self._WEB_SOFTWARE_VULNERABIL)
+        except:
+            software_vulnerabil = {}
         lib_json = []
         for component in range(1, 3):
             try:
@@ -257,36 +276,46 @@ class WebSec(Locators):
                                                         f'//*[@id="appscan-components-value"]/div[{component}]/div[2]/div'))
             except selenium_exceptions.NoSuchElementException:
                 logger.debug("No such element")
+                lib_name = ""
+                lib_version = ""
+                lib_message = ""
             finally:
                 try:
                     lib_vulnerabil_score = []
                     lib_vulnerabil_cve = []
                     lib_vulnerabil_type = []
-                    for vuln in range(1, 11):
-                        lib_vulnerabil_score.append(self.__handel_get_result((By.XPATH,
-                                                                              f'//*[@id="appscan-components-value"]/div[{component}]/div[2]/table/tbody/tr[{vuln}]/td[1]')))
-                        lib_vulnerabil_cve.append(self.__handel_get_result((By.XPATH,
-                                                                            f'//*[@id="appscan-components-value"]/div[{component}]/div[2]/table/tbody/tr[{vuln}]/td[2]')))
-                        typ1 = self.__handel_get_result((By.XPATH,
-                                                         f'//*[@id="appscan-components-value"]/div[{component}]/div[2]/table/tbody/tr[{vuln}]/td[3]'))
-                        lib_vulnerabil_type.append(typ1)
+                    if lib_name!= "":
+                        for vuln in range(1, 11):
+                            lib_vulnerabil_score.append(self.__handel_get_result((By.XPATH,
+                                                                                f'//*[@id="appscan-components-value"]/div[{component}]/div[2]/table/tbody/tr[{vuln}]/td[1]')))
+                            lib_vulnerabil_cve.append(self.__handel_get_result((By.XPATH,
+                                                                                f'//*[@id="appscan-components-value"]/div[{component}]/div[2]/table/tbody/tr[{vuln}]/td[2]')))
+                            typ1 = self.__handel_get_result((By.XPATH,
+                                                            f'//*[@id="appscan-components-value"]/div[{component}]/div[2]/table/tbody/tr[{vuln}]/td[3]'))
+                            lib_vulnerabil_type.append(typ1)
                 except Exception:
                     logger.debug("No such element")
+                    lib_vulnerabil_score = []
+                    lib_vulnerabil_cve = []
+                    lib_vulnerabil_type = []
                 finally:
                     lib_json_vulnerabil = []
-                    for index in range(0, len(lib_vulnerabil_score)):  # pylint: disable = consider-using-enumerate
-                        if index == len(lib_vulnerabil_score)-1:
-                            lib_json_vulnerabil.append({
-                                "score": lib_vulnerabil_score[index],
-                                "cve": lib_vulnerabil_cve[index],
-                                "type": lib_vulnerabil_type[index]
-                            })
-                        else:
-                            lib_json_vulnerabil.append({
-                                "score": lib_vulnerabil_score[index],
-                                "cve": lib_vulnerabil_cve[index],
-                                "type": lib_vulnerabil_type[index]
-                            },)
+                    try:
+                        for index in range(0, len(lib_vulnerabil_score)):  # pylint: disable = consider-using-enumerate
+                            if index == len(lib_vulnerabil_score)-1:
+                                lib_json_vulnerabil.append({
+                                    "score": lib_vulnerabil_score[index],
+                                    "cve": lib_vulnerabil_cve[index],
+                                    "type": lib_vulnerabil_type[index]
+                                })
+                            else:
+                                lib_json_vulnerabil.append({
+                                    "score": lib_vulnerabil_score[index],
+                                    "cve": lib_vulnerabil_cve[index],
+                                    "type": lib_vulnerabil_type[index]
+                                },)
+                    except:
+                        pass
             if component == 1:
                 lib_json.append({
                     "name": lib_name,
@@ -323,6 +352,7 @@ class WebSec(Locators):
                 EC.presence_of_element_located(loctor))
         except selenium_exceptions.TimeoutException:
             logger.debug("Result not found")
+            results = ""
         else:
             logger.debug("Result found")
             results = elment.text

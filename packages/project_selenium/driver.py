@@ -22,7 +22,7 @@ def setup_selenium_driver() -> webdriver.Chrome:
             Exception: if unable to open selenium driver"""
     logger.debug("Setting up selenium")
     options = webdriver.ChromeOptions()
-    options.headless = True
+    options.headless = False
     try:
         driver = webdriver.Chrome(
             executable_path="chromedriver.exe", options=options)
@@ -50,10 +50,8 @@ def teardown_selenium_driver(driver):
         driver.quit()
     except selenium_exceptions.WebDriverException as ex:
         logger.critical("Unable to quit driver: %s", ex.__doc__)
-        raise (f"Unable to quit driver: {ex.__doc__}") from ex
     except Exception as ex:
         logger.critical("Unable to quit driver: %s", ex.__doc__)
-        raise (f"Unable to quit driver: {ex.__doc__}") from ex
     else:
         del driver
         logger.debug("Tear Down Successfully.")

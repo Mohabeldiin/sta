@@ -19,7 +19,7 @@ class SEORanking():
     # def __init__(self, url: str = get_link_to_test()):
     def __init__(self, args):
         """Initializes seo"""
-        url = get_link_to_test(args.id)
+        url = get_link_to_test(args['id'])
         self.driver = setup_selenium_driver()
         api = f"https://online.seranking.com/research.competitor.html/organic/keywords?input={url}&mode=base_domain&source=eg"  # pylint: disable=line-too-long
         self.__open_seranking(api)
@@ -177,15 +177,18 @@ class SEORanking():
                 raise (f"Unable to open SE Ranking{ex.__doc__}") from ex
             else:
                 keyword = element.text
-                character = keyword[2]
-                if('\u0600' <= character <= '\u06FF' or
-                    '\u0750' <= character <= '\u077F' or
-                    '\u08A0' <= character <= '\u08FF' or
-                    '\uFB50' <= character <= '\uFDFF' or
-                    '\uFE70' <= character <= '\uFEFF' or
-                    '\U00010E60' <= character <= '\U00010E7F' or
-                        '\U0001EE00' <= character <= '\U0001EEFF'):
-                    keyword = arabic_reshaper.reshape(keyword)[::-1]
+                try:
+                    character = keyword[2]
+                    if('\u0600' <= character <= '\u06FF' or
+                        '\u0750' <= character <= '\u077F' or
+                        '\u08A0' <= character <= '\u08FF' or
+                        '\uFB50' <= character <= '\uFDFF' or
+                        '\uFE70' <= character <= '\uFEFF' or
+                        '\U00010E60' <= character <= '\U00010E7F' or
+                            '\U0001EE00' <= character <= '\U0001EEFF'):
+                        keyword = arabic_reshaper.reshape(keyword)[::-1]
+                except IndexError:
+                    pass
                 keywords.append(keyword)
                 logger.debug("Keyword: %s", keyword)
         return keywords

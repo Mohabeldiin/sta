@@ -1,5 +1,6 @@
 """foo"""
 
+from packages.testsuites import config
 from packages.testsuites.suite_registration.test_19_registration import Test_19_Registration
 from packages.testsuites.suite_registration.test_18_registration import Test_18_Registration
 from packages.testsuites.suite_registration.test_17_registration import Test_17_Registration
@@ -39,55 +40,63 @@ from packages.testsuites.suite_login.test_17_login import test_17_login
 from packages.testsuites.suite_login.test_18_login import test_18_login
 from packages.testsuites.suite_login.test_19_login import test_19_login
 from packages.testsuites.suite_login.test_20_login import test_20_login
-from packages.testsuites.suite_registration.init import project_logger, unittest
+from packages.testsuites.suite_registration.init import project_logger, unittest, get_parser
 
 logger = project_logger("Registration Test Suite")
 
 logger.info("Collecting Registration Test Suite")
 
-suite = unittest.TestSuite()
+parser = get_parser()
+
+suite_login = unittest.TestSuite()
+suite_registration = unittest.TestSuite()
 runner = unittest.TextTestRunner()
 
-suite.addTest(unittest.makeSuite(Test_01_User_Interface))
-suite.addTest(unittest.makeSuite(Test_02_Registration))
-suite.addTest(unittest.makeSuite(Test_03_Registration))
-suite.addTest(unittest.makeSuite(Test_04_Registration))
-suite.addTest(unittest.makeSuite(Test_05_Registration))
-suite.addTest(unittest.makeSuite(Test_06_Registration))
-suite.addTest(unittest.makeSuite(Test_07_Registration))
-suite.addTest(unittest.makeSuite(Test_08_Registration))
-suite.addTest(unittest.makeSuite(Test_09_Registration))
-suite.addTest(unittest.makeSuite(Test_10_Registration))
-suite.addTest(unittest.makeSuite(Test_11_Registration))
-suite.addTest(unittest.makeSuite(Test_12_Registration))
-suite.addTest(unittest.makeSuite(Test_13_Registration))
-suite.addTest(unittest.makeSuite(Test_14_Registration))
-suite.addTest(unittest.makeSuite(Test_15_Registration))
-suite.addTest(unittest.makeSuite(Test_16_Registration))
-suite.addTest(unittest.makeSuite(Test_17_Registration))
-suite.addTest(unittest.makeSuite(Test_18_Registration))
-suite.addTest(unittest.makeSuite(Test_19_Registration))
-suite.addTest(unittest.makeSuite(test_01_login))
-suite.addTest(unittest.makeSuite(test_02_login))
-suite.addTest(unittest.makeSuite(test_03_login))
-suite.addTest(unittest.makeSuite(test_04_login))
-suite.addTest(unittest.makeSuite(test_05_login))
-suite.addTest(unittest.makeSuite(test_06_login))
-suite.addTest(unittest.makeSuite(test_07_login))
-suite.addTest(unittest.makeSuite(test_08_login))
-suite.addTest(unittest.makeSuite(test_09_login))
-suite.addTest(unittest.makeSuite(test_10_login))
-suite.addTest(unittest.makeSuite(test_11_login))
-suite.addTest(unittest.makeSuite(test_12_login))
-suite.addTest(unittest.makeSuite(test_13_login))
-suite.addTest(unittest.makeSuite(test_14_login))
-suite.addTest(unittest.makeSuite(test_15_login))
-suite.addTest(unittest.makeSuite(test_16_login))
-suite.addTest(unittest.makeSuite(test_17_login))
-suite.addTest(unittest.makeSuite(test_18_login))
-suite.addTest(unittest.makeSuite(test_19_login))
-suite.addTest(unittest.makeSuite(test_20_login))
+suite_registration.addTest(unittest.makeSuite(Test_01_User_Interface))
+suite_registration.addTest(unittest.makeSuite(Test_02_Registration))
+suite_registration.addTest(unittest.makeSuite(Test_03_Registration))
+suite_registration.addTest(unittest.makeSuite(Test_04_Registration))
+suite_registration.addTest(unittest.makeSuite(Test_05_Registration))
+suite_registration.addTest(unittest.makeSuite(Test_06_Registration))
+suite_registration.addTest(unittest.makeSuite(Test_07_Registration))
+suite_registration.addTest(unittest.makeSuite(Test_08_Registration))
+suite_registration.addTest(unittest.makeSuite(Test_09_Registration))
+suite_registration.addTest(unittest.makeSuite(Test_10_Registration))
+suite_registration.addTest(unittest.makeSuite(Test_11_Registration))
+suite_registration.addTest(unittest.makeSuite(Test_12_Registration))
+suite_registration.addTest(unittest.makeSuite(Test_13_Registration))
+suite_registration.addTest(unittest.makeSuite(Test_14_Registration))
+suite_registration.addTest(unittest.makeSuite(Test_15_Registration))
+suite_registration.addTest(unittest.makeSuite(Test_16_Registration))
+suite_registration.addTest(unittest.makeSuite(Test_17_Registration))
+suite_registration.addTest(unittest.makeSuite(Test_18_Registration))
+suite_registration.addTest(unittest.makeSuite(Test_19_Registration))
+suite_login.addTest(unittest.makeSuite(test_01_login))
+suite_login.addTest(unittest.makeSuite(test_02_login))
+suite_login.addTest(unittest.makeSuite(test_03_login))
+suite_login.addTest(unittest.makeSuite(test_04_login))
+suite_login.addTest(unittest.makeSuite(test_05_login))
+suite_login.addTest(unittest.makeSuite(test_06_login))
+suite_login.addTest(unittest.makeSuite(test_07_login))
+suite_login.addTest(unittest.makeSuite(test_08_login))
+suite_login.addTest(unittest.makeSuite(test_09_login))
+suite_login.addTest(unittest.makeSuite(test_10_login))
+suite_login.addTest(unittest.makeSuite(test_11_login))
+suite_login.addTest(unittest.makeSuite(test_12_login))
+suite_login.addTest(unittest.makeSuite(test_13_login))
+suite_login.addTest(unittest.makeSuite(test_14_login))
+suite_login.addTest(unittest.makeSuite(test_15_login))
+suite_login.addTest(unittest.makeSuite(test_16_login))
+suite_login.addTest(unittest.makeSuite(test_17_login))
+suite_login.addTest(unittest.makeSuite(test_18_login))
+suite_login.addTest(unittest.makeSuite(test_19_login))
+suite_login.addTest(unittest.makeSuite(test_20_login))
 
 logger.info("Running Registration Test Suite")
 
-runner.run(suite)
+args = parser.parse_args()
+
+config.id = args.id
+
+result_login = runner.run(suite_login)
+result_registration = runner.run(suite_registration)

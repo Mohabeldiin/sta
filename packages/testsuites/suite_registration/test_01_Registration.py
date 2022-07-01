@@ -2,10 +2,12 @@
     TC_01_Registration
     Refer to https://www.loginradius.com/blog/async/test-cases-for-registration-and-login-page/"""
 
-from packages.testsuites.suite_registration.init import TearDown, SetUp, unittest, project_logger, setup_selenium_driver
+from packages.testsuites.suite_registration.init import TearDown, SetUp, unittest, project_logger, setup_selenium_driver, get_parser
+
 
 logger = project_logger("Registration Test Case 1")
 
+parser = get_parser()
 
 class Test_01_User_Interface(unittest.TestCase):  # pylint: disable = invalid-name
     """Checks all the text boxes, radio buttons, buttons, etc"""
