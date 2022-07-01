@@ -52,11 +52,14 @@ def get_link_to_test(id:str):
     return validate_url(get_link_to_test_without_validate(id))
 
 
-def get_link_to_test_without_validate(id:str):
+def get_link_to_test_without_validate(id:str=None):
     """Gets the Link from the database"""
     logger.info("Getting Link from Database")
     # old_link = "https://a5r-testing.herokuapp.com/getLink"
-    link = f"https://staapi.herokuapp.com/Url/{id}"
+    if id is None:
+        link = "https://staapi.herokuapp.com/Url/"
+    else:
+        link = f"https://staapi.herokuapp.com/Url/{id}"
     logger.debug("Requesting Link")
     response = requests.get(link)
     logger.debug("Response Received")
