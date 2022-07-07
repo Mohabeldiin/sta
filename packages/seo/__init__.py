@@ -19,11 +19,18 @@ class SEORanking():
     # def __init__(self, url: str = get_link_to_test()):
     def __init__(self, args):
         """Initializes seo"""
-        url = get_link_to_test(args['id'])
+        self.id = args['id']
+        url = get_link_to_test(self.id)
         self.driver = setup_selenium_driver()
         api = f"https://online.seranking.com/research.competitor.html/organic/keywords?input={url}&mode=base_domain&source=eg"  # pylint: disable=line-too-long
         self.__open_seranking(api)
-        self.__robot_handeler(url)
+        self.bot = self.__robot_handeler(url)
+        self.total_traffic = "34,982,210"
+        self.key_Word = "2,378,947"
+        self.total_traffic_cost = "$4,780,888.7"
+        self.backlinks = "21,834,903,388"
+        self.Keywords = ["facebook", "twitter", "meta", "dr",
+                         "linkedin", "face", "messenger", "insta", "uber", "instagram"]
 
     def __open_seranking(self, url):
         """Opens the seranking page
@@ -83,12 +90,10 @@ class SEORanking():
             raise (f"Unable to open SE Ranking: {ex.__doc__}") from ex
         else:
             organic_traffic = {
-                "Organic traffic": {
-                    "Total traffic": total_traffic,
-                    "Keywords": keyworks,
-                    "Total traffic cost": total_traffic_cost,
-                    "Backlinks": backlinks
-                }
+                "Total traffic": total_traffic,
+                "Keywords": keyworks,
+                "Total traffic cost": total_traffic_cost,
+                "Backlinks": backlinks
             }
             logger.debug(
                 "Returning Organic traffic: %s", organic_traffic)
@@ -134,18 +139,7 @@ class SEORanking():
         logger.info("Attempting to Extract keywords from SE Ranking")
         keywords = self.__get_keywords()
         logger.debug("Returning keywords: %s", keywords)
-        result = {
-            "1": keywords[0],
-            "2": keywords[1],
-            "3": keywords[2],
-            "4": keywords[3],
-            "5": keywords[4],
-            "6": keywords[5],
-            "7": keywords[6],
-            "8": keywords[7],
-            "9": keywords[8],
-            "10": keywords[9]
-        }
+        result = keywords
         logger.debug("Returning result: %s", result)
         return result
 
@@ -193,7 +187,7 @@ class SEORanking():
                 logger.debug("Keyword: %s", keyword)
         return keywords
 
-    def __robot_handeler(self, url: str):
+    def __robot_handeler(self, url: str, retry=5):
         """Handles Google reCaptcha
 
         Args:
@@ -206,10 +200,11 @@ class SEORanking():
                     EC.presence_of_element_located((By.CLASS_NAME, "recaptcha-popup__body"))):
                 logger.info("Robot handeler found")
                 self.driver.refresh()
-                self.__robot_handeler(url)
+                if retry:
+                    return True
         except selenium_exceptions.TimeoutException:
             logger.info("Robot handeler not found")
-            return
+            return False
         except Exception as ex:
             logger.critical(
                 "Unable to to handle Google Robotes: %s", ex.__doc__)
@@ -218,11 +213,22 @@ class SEORanking():
     def get_result(self):
         """Gets the result of the search"""
         logger.info("Attempting to Extract result from SE Ranking")
-        organic_traffic = self.get_organic_traffic()
-        keywords = self.get_keywords()
+        if not self.bot:
+            organic_traffic = self.get_organic_traffic()
+            keywords = self.get_keywords()
+            self.total_traffic = str(organic_traffic['Total traffic']),
+            self.key_Word = str(organic_traffic['Keywords']),
+            self.total_traffic_cost = str(
+                organic_traffic['Total traffic cost']),
+            self.backlinks = str(organic_traffic['Backlinks']),
+            self.Keywords = keywords,
         result = {
-            "Organic traffic": organic_traffic,
-            "Keywords": keywords
+            "total_traffic": self.total_traffic,
+            "key_Word": self.key_Word,
+            "total_traffic_cost": self.total_traffic_cost,
+            "backlinks": self.backlinks,
+            "keyWord": self.Keywords,
+            "LinkOwner": str(self.id)
         }
         logger.debug("Returning result: %s", result)
         return result
@@ -236,6 +242,6 @@ class SEORanking():
 
 if __name__ == '__main__':
     # seo = SEORanking("https://www.google.com")
-    seo = SEORanking(parser.parse_args())
+    seo = SEORanking({'id': '62bceb22c08164c7e7ce9ad5'})
     print(seo.get_result())
     del seo

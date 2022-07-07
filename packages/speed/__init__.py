@@ -25,7 +25,8 @@ class SpeedApi:
     def __init__(self, args):
         """Initialize Speed API"""
         logger.info("Initializing Speed API")
-        website = get_link_to_test_without_validate(args['id'])
+        self.id = args['id']
+        website = get_link_to_test_without_validate(self.id)
         url = f"https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url={website}&strategy=desktop&key=AIzaSyCcDNbRIvDPnuOM1TdCwoyzmP6NiGOkcLU"  # pylint: disable=line-too-long
         # with urllib.request.urlopen(url) as response:
         with requests.get(url) as response:
@@ -94,18 +95,35 @@ class SpeedApi:
 
     def get(self):
         """Get data1 from the API"""
+        loadingExperience = self.__loading_experiemnce()
+        originLoadingExperience = self.__origin_loading_experience()
+        lighthouseResult = self.__lighthouse_result()
+        overall = self.__overall()
         data1 = {
-            "loadingExperience": self.__loading_experiemnce(),
-            "originLoadingExperience": self.__origin_loading_experience(),
-            "lighthouseResult": self.__lighthouse_result(),
-            "overall": self.__overall()
-        }
+            "loadingExperince": str(loadingExperience['overall']),
+            "LE_FCP": str(loadingExperience['fcp']),
+            "LE_FID": str(loadingExperience['fid']),
+            "LE_CLS": str(loadingExperience['cls']),
+            "LE_LCP": str(loadingExperience['lcp']),
+            "OriginLoadingExperince": str(originLoadingExperience['overall']),
+            "OLE_FCP": str(originLoadingExperience['fcp']),
+            "OLE_FID": str(originLoadingExperience['fid']),
+            "OLE_CLS": str(originLoadingExperience['cls']),
+            "OLE_LCP": str(originLoadingExperience['lcp']),
+            "LH_TBT": str(lighthouseResult['tbt']),
+            "LH_SI": str(lighthouseResult['si']),
+            "LH_FCP": str(lighthouseResult['fcp']),
+            "LH_TTI": str(lighthouseResult['tto']),
+            "LH_CLS": str(lighthouseResult['cls']),
+            "LH_LCP": str(lighthouseResult['lcp']),
+            "PR_Precentage": str(overall['overall_performance']),
+            "LinkOwner": str(self.id)}
         return data1
 
 
 if __name__ == "__main__":
     # app = SpeedApi("https://www.google.com")
-    app = SpeedApi(parser.parse_args())
+    app = SpeedApi({'id': '62bceb22c08164c7e7ce9ad5'})
     # args.id = "62bceb22c08164c7e7ce9ad5"
     # app = SpeedApi("--id 62bceb22c08164c7e7ce9ad5")
     print(app.get())

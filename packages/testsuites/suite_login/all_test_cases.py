@@ -56,4 +56,6 @@ logger.info("Registration Test Suite Completed")
 
 logger.info("Running Registration Test Suite")
 
-runner.run(suite)
+result = runner.run(suite)
+
+print(result.testsRun-len(result.failures))

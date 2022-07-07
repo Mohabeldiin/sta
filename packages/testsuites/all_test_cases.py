@@ -92,13 +92,14 @@ suite_login.addTest(unittest.makeSuite(test_20_login))
 logger.info("Running Registration Test Suite")
 
 
-def get_result():
+def get_result(id):
     result_login = runner.run(suite_login)
     result_registration = runner.run(suite_registration)
     result = {
-        "login_pass": int(result_login.testsRun - result_login.failures),
-        "login_fall": result_login.failures,
-        "registration_pass": int(result_registration.testsRun - result_registration.failures),
-        "registration_fall": result_registration.failures
+        "loginPass": int(result_login.testsRun - len(result_login.failures)),
+        "loginFailure": int(len(result_login.failures)),
+        "registrationPass": int(result_registration.testsRun - len(result_registration.failures)),
+        "registrationFailure": int(len(result_registration.failures)),
+        "LinkOwner": id
     }
     return result

@@ -43,9 +43,11 @@ class WebSec(Locators):
     def __init__(self, args) -> None:
         """Initializes the class"""
         try:
-            self.__url = get_link_to_test(args['id'])
+            self.id = args['id']
         except:
-            self.__url = get_link_to_test(args.id)
+            self.id = args.id
+        finally:
+            self.__url = get_link_to_test(self.id)
 
         self.__driver = setup_selenium_driver()
         self.__open_immuniweb(self._IMMUNIWEB)
@@ -331,12 +333,13 @@ class WebSec(Locators):
                     "vulnerabil": lib_json_vulnerabil
                 })
         result = {
-            "final_score": final_score,
-            "server_ip": server_ip,
+            "final_score": str(final_score),
+            "server_ip": str(server_ip),
             "software_found": software_found,
             "software_outdated": software_outdated,
             "software_vulnerabil": software_vulnerabil,
-            "lib_json": lib_json
+            "lib_json": lib_json,
+            "LinkOwner": self.id
         }
         logger.debug("Returning scan results: %s", result)
         return result
